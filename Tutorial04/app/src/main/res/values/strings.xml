@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Tutorial 04</string>
+
+    <!--*************************Login Screen*****************-->
+    <string name="title_name">User Login</string>
+    <string name="enter_your_email">Enter your Email</string>
+    <string name="enter_your_password">Enter your Password</string>
+    <string name="button_name">Login</string>
+
+    <!--****************Welcome Screen****************-->
+    <string name="wel_user">Welcome User!!</string>
+    <string name="splash_wel_msg">Welcome!!</string>
+</resources>

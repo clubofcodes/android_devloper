@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">18SOEIT11009</string>
+    <string name="title">About</string>
+    <string name="val_str">Hello World!</string>
+    <string name="En_no">18SOEIT11009</string>
+    <string name="fname">Rahul</string>
+    <string name="txt_email">rjagetiya780@rku.ac.in</string>
+    <string name="password">********</string>
+    <string name="gender_city">Gender City</string>
+    <string name="mname">Rajesh</string>
+    <string name="lname">Jagetia</string>
+    <string name="gender">Male</string>
+    <string name="city">Rajkot</string>
+
+</resources>
