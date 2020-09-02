@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Tutorial 05</string>
+    <string name="splash_wel_msg">Welcome!!</string>
+
+    <!--*************************Login Screen*****************-->
+    <string name="title_name">User Login</string>
+    <string name="enter_your_email">Enter your Email</string>
+    <string name="enter_your_password">Enter your Password</string>
+    <string name="button_name">Login</string>
+    <string name="register">Not a user? Register from here....!!</string>
+
+    <!--****************Welcome Screen****************-->
+    <string name="wel_user">Welcome User!!</string>
+    <string name="btn_logout">Logout</string>
+
+    <!--*********************Signup Screen*********************-->
+    <string name="signUp_firstname">Enter your Firstname</string>
+    <string name="signUp_lastname">Enter your Lastname</string>
+    <string name="sign_up_btn">REGISTER ME</string>
+    <string name="reg_field">Branch CE/IT</string>
+    <string name="gen_male">Male</string>
+    <string name="gen_female">Female</string>
+    <string name="prof_status">Profile Status Active/Inactive</string>
+    <string-array name="city">
+        <item>Select Your City...</item>
+        <item>Ahmedabad</item>
+        <item>Surat</item>
+        <item>Rajkot</item>
+        <item>Vadodara</item>
+        <item>Gandhinagar</item>
+        <item>Bhavnagar</item>
+        <item>Jamnagar</item>
+        <item>Junagadh</item>
+        <item>Porbandar</item>
+        <item>Bharuch</item>
+        <item>Anand</item>
+        <item>Dwarka</item>
+    </string-array>
+</resources>
