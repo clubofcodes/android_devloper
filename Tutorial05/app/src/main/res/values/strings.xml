@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">Tutorial 05</string>
+    <string name="app_name05">Tutorial 05</string>
+    <string name="app_name06">Tutorial 06</string>
+    <string name="app_name07">Tutorial 07</string>
     <string name="splash_wel_msg">Welcome!!</string>
 
     <!--*************************Login Screen*****************-->

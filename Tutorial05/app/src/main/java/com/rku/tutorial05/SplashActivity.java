@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class SplashActivity extends AppCompatActivity {
     TextView textView;
     @Override
@@ -26,28 +29,18 @@ public class SplashActivity extends AppCompatActivity {
         String text = "Welcome!! ";
         textView.setText(text + emoji);
 
-
         ImageView imageView = findViewById(R.id.aboutUSimageview);
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade);
         imageView.startAnimation(animation);
 
-        Thread timer = new Thread(){
+        new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                try{
-                    sleep(2000);
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                    super.run();
-                }
-                catch (InterruptedException e){
-                    e.printStackTrace();
-                }
-                super.run();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
             }
-        };
-        timer.start();
+        },2000);
 
     }
     public String getEmojiByUnicode(int unicode){

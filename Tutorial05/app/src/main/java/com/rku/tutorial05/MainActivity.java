@@ -17,6 +17,10 @@ public class MainActivity extends AppCompatActivity {
     EditText username, password;
     Button login;
     TextView signUp;
+    //*******************"Tutorial 06"*******************
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
+    //*******************"Tutorial 06"*******************
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +30,17 @@ public class MainActivity extends AppCompatActivity {
         login=findViewById(R.id.Loginbutton);
         signUp=findViewById(R.id.signUpLink);
 
+        //*******************"Tutorial 06"*******************
+        preferences = getSharedPreferences("session", MODE_PRIVATE);
+        editor = preferences.edit();
+        String pref_email = preferences.getString("email","");
+        if(!pref_email.equals("")){
+            Intent intent = new Intent(MainActivity.this,WelcomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        //*******************"Tutorial 06"*******************
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,7 +48,10 @@ public class MainActivity extends AppCompatActivity {
                 {
                     Toast.makeText(MainActivity.this,"You have Authenticated Successfully", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
-                    intent.putExtra ( "Name", username.getText().toString());
+                    //*******************"Tutorial 06"*******************
+                    editor.putString("email",username.getText().toString().trim());
+                    editor.commit();
+                    //*******************"Tutorial 06"*******************
                     startActivity(intent);
                     finish();
                 }
