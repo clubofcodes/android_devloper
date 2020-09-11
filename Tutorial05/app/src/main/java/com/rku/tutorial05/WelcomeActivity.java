@@ -2,6 +2,7 @@ package com.rku.tutorial05;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +21,8 @@ public class WelcomeActivity extends AppCompatActivity {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     //*****************"Tutorial 06"***********************
+    MyDatabaseHelper myDB;
+    Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +32,15 @@ public class WelcomeActivity extends AppCompatActivity {
 
         //*****************"Tutorial 06"***********************
         preferences = getSharedPreferences("session", MODE_PRIVATE);
-        welUser.setText("Welcome, "+preferences.getString("email",""));
+//        welUser.setText("Welcome, "+preferences.getString("email",""));
         editor = preferences.edit();
         //*******************"Tutorial 06"*******************
+
+        myDB = new MyDatabaseHelper(this);
+        cursor = myDB.read_user_data(preferences.getString("email",""));
+        while (cursor.moveToNext()){
+            welUser.setText("Welcome!! " + cursor.getString(1));
+        }
     }
 
     //**************"Used by Tutorial 06"****************

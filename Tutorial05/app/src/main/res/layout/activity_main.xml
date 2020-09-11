@@ -63,6 +63,7 @@
                 android:drawableStart="@drawable/email_icon"
                 android:drawablePadding="10dp"
                 android:hint="@string/enter_your_email"
+                android:text="rjagetiya780@rku.ac.in"
                 android:inputType="textEmailAddress"
                 android:textCursorDrawable="@drawable/cursor" />
 
@@ -75,6 +76,7 @@
                 android:drawableStart="@drawable/pass_icon"
                 android:drawablePadding="10dp"
                 android:hint="@string/enter_your_password"
+                android:text="Rahul@123"
                 android:inputType="textPassword"
                 android:textCursorDrawable="@drawable/cursor" />
 

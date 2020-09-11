@@ -2,6 +2,7 @@ package com.rku.tutorial05;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -21,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     //*******************"Tutorial 06"*******************
+    //*****************"Tutorial 07"***********************
+    MyDatabaseHelper myDB;
+    Cursor cursor;
+    //*****************"Tutorial 07"***********************
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,22 +46,31 @@ public class MainActivity extends AppCompatActivity {
         }
         //*******************"Tutorial 06"*******************
 
+        //*****************"Tutorial 07"***********************
+        Intent i = getIntent();
+        String e_id = i.getStringExtra("e_id");
+        String pass = i.getStringExtra("pass");
+        username.setText(e_id);
+        password.setText(pass);
+        //*****************"Tutorial 07"***********************
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Patterns.EMAIL_ADDRESS.matcher(username.getText().toString()).matches() && password.getText().toString().length()>=8)
-                {
+                //*****************"Tutorial 07"***********************
+                myDB = new MyDatabaseHelper(MainActivity.this);
+                cursor = myDB.checkLogin(username.getText().toString(), password.getText().toString());
+                if(cursor.getCount()!=0) {
+                    //*****************"Tutorial 07"***********************
                     Toast.makeText(MainActivity.this,"You have Authenticated Successfully", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
                     //*******************"Tutorial 06"*******************
                     editor.putString("email",username.getText().toString().trim());
                     editor.commit();
                     //*******************"Tutorial 06"*******************
+                    Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
                     startActivity(intent);
                     finish();
-                }
-                else
-                {
+                } else {
                     Toast.makeText(MainActivity.this,"Username or Password is incorrect",Toast.LENGTH_LONG).show();
                 }
             }
