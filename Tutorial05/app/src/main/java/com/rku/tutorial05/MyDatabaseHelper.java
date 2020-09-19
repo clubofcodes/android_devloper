@@ -6,8 +6,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.ArrayAdapter;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
@@ -76,14 +79,42 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }
         return cursor;
     }
-    Cursor read_user_data(String username){
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "select * from registration where email='"+ username +"'";
-        Cursor cursor = null;
-        if(db != null){
-            cursor = db.rawQuery(query, null);
+    //*****************"Tutorial 07"***********************
+
+    //*****************"Tutorial 08"***********************
+    public ArrayList<String> getUserList(){
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<String> list = new ArrayList<>();
+        Cursor cursor = db.query(
+                Signup_Table_Name,
+                new String[]{user_id},
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+        if(cursor!=null && cursor.getCount()>0){
+            cursor.moveToFirst();
+            do{
+                list.add(cursor.getString(0));
+            }while (cursor.moveToNext());
         }
+        return list;
+    }
+
+    public Cursor getPartUserData(String username) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(
+                Signup_Table_Name,
+                null,
+                "email=?",
+                new String[]{username},
+                null,
+                null,
+                null
+        );
         return cursor;
     }
-    //*****************"Tutorial 07"***********************
+    //*****************"Tutorial 08"***********************
 }

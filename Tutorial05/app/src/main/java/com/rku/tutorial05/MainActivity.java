@@ -46,13 +46,6 @@ public class MainActivity extends AppCompatActivity {
         }
         //*******************"Tutorial 06"*******************
 
-        //*****************"Tutorial 07"***********************
-        Intent i = getIntent();
-        String e_id = i.getStringExtra("e_id");
-        String pass = i.getStringExtra("pass");
-        username.setText(e_id);
-        password.setText(pass);
-        //*****************"Tutorial 07"***********************
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override

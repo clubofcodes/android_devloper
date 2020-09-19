@@ -59,22 +59,11 @@ public class SignupActivity extends AppCompatActivity {
                 String loc = city.getSelectedItem().toString(); //loc=location
                 Boolean active = status.isChecked();
                 if(!val.empty(firstN) && !val.empty(lastN) && !val.empty(mailId) && !val.empty(password) && Patterns.EMAIL_ADDRESS.matcher(mailId).matches() && password.length()>=8){
-//                    Intent i = new Intent(SignupActivity.this,RegDisplayActivity.class);
-//                    i.putExtra("fname",firstN);
-//                    i.putExtra("lname",lastN);
-//                    i.putExtra("email",mailId);
-//                    i.putExtra("pass",password);
-//                    i.putExtra("gen",gender.getText().toString());
-//                    i.putExtra("field",branch);
-//                    i.putExtra("city",loc);
-//                    i.putExtra("status",active);
-//                    startActivity(i);
+
                     //*****************"Tutorial 07"***********************
                     mydb = new MyDatabaseHelper(SignupActivity.this);
                     Boolean res=mydb.reg_insert(firstN,lastN,mailId,password,branch,gender.getText().toString(),loc);
                     Intent i = new Intent(getApplicationContext(),MainActivity.class);
-                    i.putExtra("e_id",mailId);
-                    i.putExtra("pass",password);
                     if(res){
                         startActivity(i);
                         finish();
