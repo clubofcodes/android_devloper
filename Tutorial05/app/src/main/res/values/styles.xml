@@ -31,8 +31,7 @@
 
     <style name="radioButton">
         <item name="android:textColor">@color/icons</item>
-        <item name="android:textSize">18dp</item>
-        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="Spinner">
