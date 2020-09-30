@@ -3,6 +3,7 @@
     <string name="app_name06">Tutorial 06</string>
     <string name="app_name07">Tutorial 07</string>
     <string name="app_name08">Tutorial 08</string>
+    <string name="app_name09">Tutorial 09</string>
     <string name="splash_wel_msg">Welcome!!</string>
 
     <!--*************************Login Screen*****************-->
@@ -32,4 +33,10 @@
         <item>Jamnagar</item>
         <item>Other</item>
     </string-array>
+
+    <!--*********************FileHandling Screen*********************-->
+    <string name="fileEditTxt">Enter your text here...</string>
+    <string name="read_files">READ FILES</string>
+    <string name="read_assets">READ ASSETS</string>
+    <string name="write_files">WRITE FILES</string>
 </resources>

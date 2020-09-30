@@ -3,7 +3,11 @@
     //*****************"Tutorial 06"***********************
     <item android:title="About"
         android:id="@+id/abt_menu"/>
+    //*****************"Tutorial 09"***********************
+    <item android:title="View &amp; Write Files"
+        android:id="@+id/manageFiles"/>
+    //*****************"Tutorial 09"***********************
     <item android:title="Logout"
-        android:id="@+id/logout_menu"/>
+    android:id="@+id/logout_menu"/>
     //*****************"Tutorial 06"***********************
 </menu>

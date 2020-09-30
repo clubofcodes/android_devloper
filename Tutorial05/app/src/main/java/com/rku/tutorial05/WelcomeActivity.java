@@ -94,11 +94,15 @@ public class WelcomeActivity extends AppCompatActivity {
             case R.id.abt_menu:
                 Toast.makeText(WelcomeActivity.this, "You clicked about us..", Toast.LENGTH_SHORT).show();
                 break;
+            //*****************"Tutorial 09"***********************
+            case R.id.manageFiles:
+                startActivity(new Intent(getApplicationContext(),FileHandlingActivity.class));
+                break;
+            //*****************"Tutorial 09"***********************
             case R.id.logout_menu:
                 editor.remove("email");
                 editor.commit();
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
                 finish();
                 break;
         }
