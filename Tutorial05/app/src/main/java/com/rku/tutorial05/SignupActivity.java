@@ -10,7 +10,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,7 +62,7 @@ public class SignupActivity extends AppCompatActivity {
                     //*****************"Tutorial 07"***********************
                     myDb = new MyDatabaseHelper(SignupActivity.this);
                     Boolean res=myDb.reg_insert(firstN,lastN,mailId,password,branch,gender.getText().toString(),loc);
-                    Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                    Intent i = new Intent(getApplicationContext(), LoginActivity.class);
                     if(res){
                         startActivity(i);
                         finish();
@@ -101,7 +100,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void loginClick(View view) {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
         finish();
     }

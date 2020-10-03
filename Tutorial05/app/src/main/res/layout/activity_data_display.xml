@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:padding="10dp"
-    tools:context=".RegDisplayActivity">
+    tools:context=".DataDisplayActivity">
 
     <ScrollView
         android:id="@+id/RegDisplayScroll"
@@ -26,6 +26,11 @@
             <TextView
                 android:id="@+id/DisplayTextView"
                 style="@style/textViewStyle"/>
+            <!--*******************"Tutorial 10 (onlineUsers dataView)"*******************-->
+            <TextView
+                android:id="@+id/onlineDataTextView"
+                style="@style/textViewStyle"/>
+            <!--*******************"Tutorial 10"*******************-->
 
         </LinearLayout>
     </ScrollView>

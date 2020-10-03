@@ -30,11 +30,9 @@
     <TextView
         android:id="@+id/SplashTitle"
         style="@style/TitleStyle"
-        android:layout_gravity="center"
         android:layout_marginTop="100dp"
         android:layout_marginBottom="50dp"
         android:foregroundGravity="center_vertical|center"
-        android:layoutDirection="ltr"
         android:text="@string/splash_wel_msg"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
