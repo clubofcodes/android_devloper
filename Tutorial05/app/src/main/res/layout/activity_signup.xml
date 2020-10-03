@@ -4,18 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/signupConLayout"
-    style="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    android:padding="16dp"
     tools:context=".SignupActivity">
 
     <ScrollView
         android:id="@+id/signupScrollView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,9 +21,9 @@
 
         <LinearLayout
             android:id="@+id/signupScrollCon"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            style="@style/LayoutStyle"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/signupImgView"
@@ -34,156 +32,100 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:src="@drawable/signup_icon"
-                app:layout_constraintBottom_toTopOf="@+id/signupName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints">
+
             </androidx.appcompat.widget.AppCompatImageView>
 
             <EditText
                 android:id="@+id/signupName"
                 style="@style/textBoxViewStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:autofillHints=""
                 android:drawableStart="@drawable/name_icon"
-                android:drawablePadding="10dp"
-                android:hint="@string/signUp_firstname"
-                android:inputType="textPersonName"
-                android:selectAllOnFocus="true"
-                android:textCursorDrawable="@drawable/cursor"
-                app:layout_constraintBottom_toTopOf="@+id/signupSurname"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/signupImgView" />
+                android:hint="@string/signUp_firstname" />
+
             <EditText
                 android:id="@+id/signupSurname"
                 style="@style/textBoxViewStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:autofillHints=""
                 android:drawableStart="@drawable/name_icon"
-                android:drawablePadding="10dp"
-                android:hint="@string/signUp_lastname"
-                android:inputType="textPersonName"
-                android:selectAllOnFocus="true"
-                android:textCursorDrawable="@drawable/cursor"
-                app:layout_constraintBottom_toTopOf="@+id/signupEmail"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/signupName" />
+                android:hint="@string/signUp_lastname" />
+
             <EditText
                 android:id="@+id/signupEmail"
                 style="@style/textBoxViewStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:autofillHints=""
                 android:drawableStart="@drawable/email_icon"
-                android:drawablePadding="10dp"
                 android:hint="@string/enter_your_email"
-                android:inputType="textEmailAddress"
-                android:selectAllOnFocus="true"
-                android:textCursorDrawable="@drawable/cursor"
-                app:layout_constraintBottom_toTopOf="@+id/signupPass"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/signupSurname" />
+                android:inputType="textEmailAddress" />
+
             <EditText
                 android:id="@+id/signupPass"
                 style="@style/textBoxViewStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:autofillHints=""
                 android:drawableStart="@drawable/pass_icon"
-                android:drawablePadding="10dp"
                 android:hint="@string/enter_your_password"
-                android:inputType="textPassword"
-                android:selectAllOnFocus="true"
-                android:textCursorDrawable="@drawable/cursor"
-                app:layout_constraintBottom_toTopOf="@+id/signupbtn"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/signupEmail" />
+                android:inputType="textPassword" />
 
-            <LinearLayout
+            <RadioGroup
+                android:id="@+id/genderRadioGroup"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
+                <!--android:track="@drawable/switch_track_custom"-->
                 <Switch
                     android:id="@+id/signupFieldSwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:buttonTintMode="screen"
+                    style="@style/SwitchStyle"
                     android:text="@string/reg_field"
-                    android:textColor="@color/icons"
-                    android:textSize="18sp"
                     android:theme="@style/SwitchTheme"
                     tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-                <RadioGroup
-                    android:id="@+id/genderRadioGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/MaleRadioButton"
+                    style="@style/radioButton"
+                    app:autoSizeTextType="none"
+                    app:autoSizeMinTextSize="10sp"
+                    app:autoSizeMaxTextSize="100sp"
+                    app:autoSizeStepGranularity="2sp"
+                    android:checked="true"
+                    android:text="@string/gen_male" />
 
-                    <RadioButton
-                        android:id="@+id/MaleRadioButton"
-                        style="@style/radioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@android:color/white"
-                        android:checked="true"
-                        android:text="@string/gen_male" />
+                <RadioButton
+                    android:id="@+id/FemaleRadioButton"
+                    style="@style/radioButton"
+                    android:text="@string/gen_female"
+                    app:autoSizeMinTextSize="10sp"
+                    app:autoSizeMaxTextSize="100sp"
+                    app:autoSizeStepGranularity="2sp"
+                    app:autoSizeTextType="uniform" />
 
-                    <RadioButton
-                        android:id="@+id/FemaleRadioButton"
-                        style="@style/radioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@android:color/white"
-                        android:text="@string/gen_female" />
-                </RadioGroup>
-            </LinearLayout>
+            </RadioGroup>
+
             <Spinner
                 android:id="@+id/citySpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                style="@style/SpinnerStyle"
+                android:layout_marginTop="0dp"
                 android:entries="@array/city"
-                android:theme="@style/Spinner"
-                android:backgroundTint="@color/icons"
-                android:popupBackground="@color/black"/>
+                android:theme="@style/BaseGreyTheme" />
+
             <CheckBox
                 android:id="@+id/statusCheckBox"
                 style="@style/textViewStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:buttonTint="@android:color/white"
                 android:text="@string/prof_status" />
+
             <Button
                 android:id="@+id/signupbtn"
+                style="@style/ButtonStyle"
+                android:text="@string/sign_up_btn" />
+
+            <TextView
+                android:id="@+id/loginLink"
                 style="@style/textViewStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/sign_up_btn"
-                android:textAllCaps="true"
-                android:textSize="22sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/signupPass" />
+                android:gravity="center"
+                android:onClick="loginClick"
+                android:text="@string/login" />
 
         </LinearLayout>
     </ScrollView>

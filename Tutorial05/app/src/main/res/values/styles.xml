@@ -7,38 +7,108 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="textViewStyle">
-        <item name="android:textColor">@color/icons</item>
-        <item name="android:background">@drawable/border</item>
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="android:textSize">18sp</item>
+    <!-- Application controls theme. -->
+    <style name="ActivityTheme" parent="Base.Theme.AppCompat">
+        <item name="actionMenuTextColor">@color/icons</item>
+        <item name="android:textColorPrimary">@color/icons</item>
     </style>
 
-    <style name="SwitchTheme" parent="Theme.AppCompat.Light">
-        <item name="android:colorControlActivated">@color/icons</item>
-    </style>
-
-    <style name="textBoxViewStyle">
-        <item name="android:layout_width">0dp</item>
+    <!-- Layout basics of application -->
+    <style name="LayoutStyle">
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <!-- Titles TextView of application -->
+    <style name="TitleStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:textColor">@color/icons</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- TextView of application -->
+    <style name="textViewStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textColor">@color/icons</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:buttonTint">@color/icons</item>
+    </style>
+
+    <!-- EditText of application -->
+    <style name="textBoxViewStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:background">@drawable/border</item>
         <item name="android:ems">10</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:inputType">textPersonName</item>
+        <item name="android:selectAllOnFocus">true</item>
+        <item name="android:textColorHighlight">@android:color/black</item>
         <item name="android:textColor">@color/icons</item>
+        <item name="android:textCursorDrawable">@drawable/cursor</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColorHint">@color/secondary_text</item>
     </style>
 
-    <style name="radioButton">
+    <!-- Buttons of application -->
+    <style name="ButtonStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/icons</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:background">@drawable/border</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:textSize">24sp</item>
     </style>
 
-    <style name="Spinner">
+    <!-- RadioButton of application -->
+    <style name="radioButton">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:textColor">@color/icons</item>
+        <item name="android:buttonTint">@color/colorAccent</item>
+    </style>
+
+    <!-- SwitchTheme of application -->
+    <style name="SwitchTheme"  parent="@style/Widget.AppCompat.CompoundButton.Switch">
+        <item name="colorControlActivated">@android:color/white</item>
+        <item name="android:colorForeground">@color/switchTrackDisable</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
+    </style>
+
+    <!-- SwitchStyle of application -->
+    <style name="SwitchStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/icons</item>
+    </style>
+
+    <!-- Grey bg Theme of application -->
+    <style name="BaseGreyTheme" parent="Base.Theme.AppCompat">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <!-- Spinner of application -->
+    <style name="SpinnerStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">10dp</item>
         <item name="android:ems">10</item>
         <item name="android:paddingStart">0dp</item>
         <item name="android:paddingEnd">0dp</item>
         <item name="android:textColor">@color/icons</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:spinnerMode">dialog</item>
     </style>
+
 </resources>

@@ -20,11 +20,12 @@
     <!--*********************Signup Screen*********************-->
     <string name="signUp_firstname">Enter your Firstname</string>
     <string name="signUp_lastname">Enter your Lastname</string>
-    <string name="sign_up_btn">REGISTER ME</string>
+    <string name="sign_up_btn">Sign Up</string>
     <string name="reg_field">Branch CE/IT</string>
     <string name="gen_male">Male</string>
     <string name="gen_female">Female</string>
     <string name="prof_status">Profile Status Active/Inactive</string>
+    <string name="login">Already a user? Login from here....!!</string>
     <string-array name="city">
         <item>Select Your City...</item>
         <item>Ahmedabad</item>

@@ -27,7 +27,7 @@ public class SignupActivity extends AppCompatActivity {
     CheckBox status;
     Validation val = new Validation();
     //*****************"Tutorial 07***********************
-    MyDatabaseHelper mydb;
+    MyDatabaseHelper myDb;
     //*****************"Tutorial 07"***********************
 
     @Override
@@ -61,8 +61,8 @@ public class SignupActivity extends AppCompatActivity {
                 if(!val.empty(firstN) && !val.empty(lastN) && !val.empty(mailId) && !val.empty(password) && Patterns.EMAIL_ADDRESS.matcher(mailId).matches() && password.length()>=8){
 
                     //*****************"Tutorial 07"***********************
-                    mydb = new MyDatabaseHelper(SignupActivity.this);
-                    Boolean res=mydb.reg_insert(firstN,lastN,mailId,password,branch,gender.getText().toString(),loc);
+                    myDb = new MyDatabaseHelper(SignupActivity.this);
+                    Boolean res=myDb.reg_insert(firstN,lastN,mailId,password,branch,gender.getText().toString(),loc);
                     Intent i = new Intent(getApplicationContext(),MainActivity.class);
                     if(res){
                         startActivity(i);
@@ -72,8 +72,8 @@ public class SignupActivity extends AppCompatActivity {
                         Toast.makeText(SignupActivity.this, "Error", Toast.LENGTH_SHORT).show();
                     }
                     //*****************"Tutorial 07"***********************
-
-                }else{
+                }
+                else{
                     if(val.empty(firstN)){
                         fname.setError("Enter your first name");
                     }
@@ -98,5 +98,11 @@ public class SignupActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void loginClick(View view) {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
 
     EditText username, password;
     Button login;
-    TextView signUp;
     //*******************"Tutorial 06"*******************
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         username=findViewById(R.id.editTextTextEmailAddress);
         password=findViewById(R.id.editTextTextPassword);
         login=findViewById(R.id.Loginbutton);
-        signUp=findViewById(R.id.signUpLink);
 
         //*******************"Tutorial 06"*******************
         preferences = getSharedPreferences("session", MODE_PRIVATE);
@@ -45,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         //*******************"Tutorial 06"*******************
-
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,12 +66,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
-                startActivity(intent);
-            }
-        });
+    }
+
+    public void signupClick(View view) {
+        Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

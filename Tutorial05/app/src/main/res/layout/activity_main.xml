@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/loginCons"
@@ -8,36 +9,6 @@
     android:background="@drawable/bg"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/aboutUSimageview"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/loginicon"
-        app:layout_constraintBottom_toTopOf="@+id/LoginTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
-
-    </androidx.appcompat.widget.AppCompatImageView>
-
-    <TextView
-        android:id="@+id/LoginTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="@string/title_name"
-        android:textColor="@color/icons"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/loginscrollView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/aboutUSimageview" />
-
     <ScrollView
         android:id="@+id/loginscrollView"
         android:layout_width="0dp"
@@ -45,66 +16,59 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LoginTitle">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/loginLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/LayoutStyle"
             android:orientation="vertical"
             android:padding="20dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/aboutUSimageview"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/loginicon"
+                tools:ignore="MissingConstraints">
+
+            </androidx.appcompat.widget.AppCompatImageView>
+
+            <TextView
+                android:id="@+id/LoginTitle"
+                style="@style/TitleStyle"
+                android:text="@string/title_name"/>
 
             <EditText
                 android:id="@+id/editTextTextEmailAddress"
                 style="@style/textBoxViewStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:autofillHints=""
                 android:drawableStart="@drawable/email_icon"
-                android:drawablePadding="10dp"
                 android:hint="@string/enter_your_email"
-                android:text="rjagetiya780@rku.ac.in"
                 android:inputType="textEmailAddress"
-                android:textCursorDrawable="@drawable/cursor" />
+                android:text="rjagetiya780@rku.ac.in" />
 
             <EditText
                 android:id="@+id/editTextTextPassword"
                 style="@style/textBoxViewStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:autofillHints=""
                 android:drawableStart="@drawable/pass_icon"
-                android:drawablePadding="10dp"
                 android:hint="@string/enter_your_password"
-                android:text="Rahul@123"
                 android:inputType="textPassword"
-                android:textCursorDrawable="@drawable/cursor" />
+                android:longClickable="false"
+                android:text="Rahul@123" />
 
             <Button
                 android:id="@+id/Loginbutton"
-                style="@style/textViewStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="0dp"
-                android:text="@string/button_name"
-                android:textSize="22sp"
-                android:textAllCaps="false" />
+                style="@style/ButtonStyle"
+                android:text="@string/button_name"/>
 
             <TextView
                 android:id="@+id/signUpLink"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:focusableInTouchMode="true"
+                style="@style/textViewStyle"
                 android:gravity="center"
-                android:outlineProvider="background"
-                android:text="@string/register"
-                android:textColor="@color/primary_dark"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Loginbutton" />
+                android:onClick="signupClick"
+                android:text="@string/register" />
         </LinearLayout>
     </ScrollView>
 

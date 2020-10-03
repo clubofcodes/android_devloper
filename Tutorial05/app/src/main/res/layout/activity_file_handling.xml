@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    android:padding="10dp"
+    android:padding="16dp"
     tools:context=".FileHandlingActivity">
 
     <!--*****************"Tutorial 09"**********************-->
     <EditText
         android:id="@+id/editTextDataFile"
         style="@style/textBoxViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:autofillHints=""
         android:hint="@string/fileEditTxt"
-        android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/readJSON_Filebtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,58 +22,50 @@
 
     <Button
         android:id="@+id/readJSON_Filebtn"
-        android:layout_width="135dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        style="@style/ButtonStyle"
         android:onClick="readAssets"
         android:text="@string/read_assets"
-        app:layout_constraintEnd_toStartOf="@+id/writeFilebtn"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDataFile" />
 
     <Button
         android:id="@+id/writeFilebtn"
-        android:layout_width="136dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        style="@style/ButtonStyle"
         android:onClick="writeFiles"
         android:text="@string/write_files"
-        app:layout_constraintEnd_toStartOf="@+id/readFilebtn"
-        app:layout_constraintStart_toEndOf="@+id/readJSON_Filebtn"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDataFile" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/readJSON_Filebtn" />
 
     <Button
         android:id="@+id/readFilebtn"
-        android:layout_width="136dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        style="@style/ButtonStyle"
         android:onClick="readFiles"
         android:text="@string/read_files"
+        app:layout_constraintBottom_toTopOf="@+id/fileViewScroll"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/writeFilebtn"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDataFile" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/writeFilebtn" />
 
     <ScrollView
         android:id="@+id/fileViewScroll"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/readFilebtn">
 
         <LinearLayout
             android:id="@+id/fileViewLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/LayoutStyle"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/filesView"
-                style="@style/textViewStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp" />
+                style="@style/textViewStyle" />
         </LinearLayout>
     </ScrollView>
     <!--*****************"Tutorial 09"***********************-->

@@ -22,7 +22,6 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".SignupActivity"
             android:label="Registration Form"
-            android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".RegDisplayActivity"
             android:label="Registration Form"
