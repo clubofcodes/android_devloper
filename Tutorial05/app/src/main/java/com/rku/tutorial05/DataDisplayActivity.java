@@ -12,12 +12,14 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import classes.MyDatabaseHelper;
+import classes.MyUtil;
+
 public class DataDisplayActivity extends AppCompatActivity {
     //*******************"Tutorial 08"*******************
     TextView data, onlineData; //onlineData for Tutorial 10
     MyDatabaseHelper myDB;
-    String userdata = "";
-    String valUserData = ""; //For Tutorial 10
+    String userdata = "", valUserData = ""; //valUserData for Tutorial 10
     //*******************"Tutorial 08"*******************
     int temp;
 
@@ -85,6 +87,7 @@ public class DataDisplayActivity extends AppCompatActivity {
         //*******************"Tutorial 10"*******************
     }
 
+    //*******************"Tutorial 10 (Back button/key event management)"*******************
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -96,12 +99,11 @@ public class DataDisplayActivity extends AppCompatActivity {
         }
         startActivity(intent);
         this.finish();
-
     }
-
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
+    //*******************"Tutorial 10"*******************
 }

@@ -107,7 +107,7 @@
                 style="@style/SpinnerStyle"
                 android:layout_marginTop="0dp"
                 android:entries="@array/city"
-                android:theme="@style/BaseGreyTheme" />
+                android:theme="@style/SpinnerTheme" />
 
             <CheckBox
                 android:id="@+id/statusCheckBox"

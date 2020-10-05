@@ -1,4 +1,4 @@
-package com.rku.tutorial05;
+package classes;
 
 import org.json.JSONArray;
 

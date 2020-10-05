@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">@android:color/white</color>
-
-    <color name="primary">#F44336</color>
-    <color name="primary_dark">#D32F2F</color>
-    <color name="primary_light">#FFCDD2</color>
-    <color name="accent">#FFEB3B</color>
-    <color name="primary_text">#212121</color>
+    <color name="colorPrimary">#FF0000</color>
+    <color name="colorPrimaryDark">#800000</color>
+    <color name="colorAccent">#000000</color>
     <color name="secondary_text">#757575</color>
-    <color name="normal_border">#4CAF50</color>
-    <color name="icons">#FFFFFF</color>
-    <color name="button">#3F51B5</color>
+    <color name="primary_light">#FFCDD2</color>
+    <color name="primary_dark">#D32F2F</color>
+    <color name="primary">#F44336</color>
+
+    <!--************VIBGYOR Sequence***********-->
+    <color name="violet">#9400D3</color>
+    <color name="indigo">#4B0082</color>
+    <color name="blue">#0000FF</color>
+    <color name="light_blue">#00FFFF</color>
+    <color name="navy_blue">#000080</color>
+    <color name="green">#00FF00</color>
+    <color name="light_green">#008000</color>
+    <color name="dark_green">#446E1F</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="gold">#ffcf40</color>
+    <color name="dark_gold">#ffbf00</color>
+    <color name="orange">#FF7F00</color>
+    <color name="dark_orange">#C65430</color>
+    <color name="red">#FF0000</color>
+    <color name="maroon">#800000</color>
+    <color name="white">#FFFFFF</color>
     <color name="black">#000</color>
     <color name="black_overlay">#66000000</color>
+    <color name="silver">#C0C0C0</color>
+    <color name="grey">#808080</color>
+    <color name="teal_blue">#008080</color>
+    <color name="purple">#800080</color>
 
     <color name="switchTrack">#ffd600</color>
     <color name="switchTrackDisable">#90caf9</color>
@@ -22,5 +38,5 @@
     <color name="switchTrackNormal">#90caf9</color>
     <color name="switchThumbBgActive">#1b5e20</color>
     <color name="switchThumbActive">#ad1457</color>
-    <color name="switchThumbkNormal">#64b5f6</color>
+    <color name="switchThumbNormal">#64b5f6</color>
 </resources>

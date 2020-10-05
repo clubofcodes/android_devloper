@@ -1,5 +1,5 @@
 //*****************"Tutorial 07"***********************
-package com.rku.tutorial05;
+package classes;
 
 import android.content.ContentValues;
 import android.content.Context;

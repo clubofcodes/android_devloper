@@ -16,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +28,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import classes.CustomAdapter;
+import classes.MyDatabaseHelper;
+import classes.MyUtil;
 
 public class WelcomeUsersActivity extends AppCompatActivity {
     //*****************"Tutorial 06"***********************
@@ -47,6 +50,7 @@ public class WelcomeUsersActivity extends AppCompatActivity {
     CustomAdapter onlineDataAdapter;
     ListView onlineUserList;
     //*******************"Tutorial 10"*******************
+    String mState;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -61,14 +65,20 @@ public class WelcomeUsersActivity extends AppCompatActivity {
         editor = preferences.edit();
         //*******************"Tutorial 06"*******************
 
+
         //*******************"Tutorial 10 (onlineUsers click event)"*******************
         int temp = getIntent().getIntExtra("temp",0);
+
         if(temp == 3){
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            databaseUserList.setVisibility(View.GONE);
+            //*****************"Extra session management (For setting menu for multiActivity)"**********************
+//            editor.putString("onlinedata","off");
+//            editor.commit();
+            //*****************"Extra session management"**********************
+            mState = "HIDE_MENU"; // setting state
             setTitle("Online Users");
-            Toast.makeText(this, "Working", Toast.LENGTH_SHORT).show();
+            databaseUserList.setVisibility(View.GONE);
             onlineUserList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -82,6 +92,10 @@ public class WelcomeUsersActivity extends AppCompatActivity {
         }
         //*******************"Tutorial 10"*******************
         else {
+            //*****************"Extra session management (For setting menu for multiActivity)"**********************
+//            editor.putString("onlinedata","on");
+//            editor.commit();
+            //*****************"Extra session management"**********************
             //*******************"Tutorial 08"*******************
             onlineUserList.setVisibility(View.GONE);
             myDB = new MyDatabaseHelper(this);
@@ -120,12 +134,16 @@ public class WelcomeUsersActivity extends AppCompatActivity {
             });
             //*******************"Tutorial 08"*******************
         }
+
+
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(getApplicationContext(),WelcomeUsersActivity.class));
+        Intent backIntent = new Intent(getApplicationContext(),WelcomeUsersActivity.class);
+        backIntent.putExtra("temp",1);
+        startActivity(backIntent);
         this.finish();
     }
 
@@ -139,6 +157,10 @@ public class WelcomeUsersActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
+        if(mState == "HIDE_MENU"){
+            for (int i = 0; i < menu.size(); i++)
+                menu.getItem(i).setVisible(false);
+        }
         return super.onCreateOptionsMenu(menu);
     }
     @Override

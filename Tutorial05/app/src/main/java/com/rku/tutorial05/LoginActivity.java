@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import classes.MyDatabaseHelper;
+
 public class LoginActivity extends AppCompatActivity {
 
     EditText username, password;

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import classes.MyDatabaseHelper;
 import validations.Validation;
 
 public class SignupActivity extends AppCompatActivity {

@@ -3,6 +3,8 @@ package com.rku.tutorial05;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -25,6 +27,11 @@ public class FileHandlingActivity extends AppCompatActivity {
     EditText editTextDataFile;
     TextView filesView;
     //*****************"Tutorial 09"**********************
+    //*****************"Extra session management (For setting menu for multiActivity)"**********************
+//    SharedPreferences preferences;
+//    SharedPreferences.Editor editor;
+//    String onlinedata;
+    //*****************"Extra session management**********************
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +43,36 @@ public class FileHandlingActivity extends AppCompatActivity {
         filesView = findViewById(R.id.filesView);
         //*****************"Tutorial 09"**********************
 
+        //*****************"Extra session management (For managing back button)**********************
+//        getSupportActionBar().setHomeButtonEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        preferences = getSharedPreferences("session", MODE_PRIVATE);
+//        editor = preferences.edit();
+//        onlinedata = preferences.getString("onlinedata","");
+        //*****************"Extra session management**********************
+
     }
+
+    //*****************"Extra session management (For managing back button)**********************
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        Intent backIntent = new Intent(getApplicationContext(),WelcomeUsersActivity.class);
+//        if(onlinedata=="on"){
+//            backIntent.putExtra("temp",1);
+//        }else {
+//            backIntent.putExtra("temp",3);
+//        }
+//        startActivity(backIntent);
+//        this.finish();
+//    }
+//
+//    @Override
+//    public boolean onSupportNavigateUp() {
+//        onBackPressed();
+//        return true;
+//    }
+    //*****************"Extra session management**********************
 
     //*****************"Tutorial 09"**********************
     public void readAssets(View view) {

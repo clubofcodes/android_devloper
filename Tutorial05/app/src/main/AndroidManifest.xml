@@ -20,14 +20,14 @@
         <activity android:name=".LoginActivity"
             android:label="Login"
             android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".WelcomeUsersActivity"
+            android:label="Database Users"/>
         <activity android:name=".SignupActivity"
             android:label="Registration Form"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".DataDisplayActivity"
             android:label="Users Data"
             android:parentActivityName=".WelcomeUsersActivity" />
-        <activity android:name=".WelcomeUsersActivity"
-            android:label="Database Users"/>
         <activity android:name=".FileHandlingActivity"
             android:label="File Handling"
             android:windowSoftInputMode="stateHidden"
