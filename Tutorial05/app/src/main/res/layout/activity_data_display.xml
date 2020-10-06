@@ -3,33 +3,177 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg"
-    android:padding="10dp"
+    style="@style/SameWH_Layout"
     tools:context=".DataDisplayActivity">
 
     <ScrollView
         android:id="@+id/RegDisplayScroll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/SameWH_Layout"
+        android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/RegDisplayLayout"
-            style="@style/LayoutStyle"
-            android:orientation="vertical">
+            android:id="@+id/userDetailsLayout"
+            style="@style/LinearLayoutStyle">
 
             <TextView
-                android:id="@+id/DisplayTextView"
-                style="@style/textViewStyle"/>
+                android:id="@+id/backClickbtn"
+                style="@style/textViewStyle"
+                android:layout_width="100dp"
+                android:layout_marginStart="5dp"
+                android:onClick="back_activity"
+                android:text="@string/back_link"
+                android:textColor="@color/red"
+                app:drawableStartCompat="@drawable/back_icon" />
+
+            <TextView
+                android:id="@+id/shortNameText"
+                style="@style/textViewStyle"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/contact_sn_bg"
+                android:gravity="center"
+                android:text="@string/short_name"
+                android:textSize="45sp" />
+
+            <TextView
+                android:id="@+id/fullNameText"
+                style="@style/TitleStyle"
+                android:layout_marginBottom="0dp"
+                android:text="@string/user_full_name" />
             <!--*******************"Tutorial 10 (onlineUsers dataView)"*******************-->
             <TextView
+                android:id="@+id/genText"
+                style="@style/textViewStyle"
+                android:gravity="center"
+                android:text="@string/user_gender" />
+
+            <TextView
                 android:id="@+id/onlineDataTextView"
-                style="@style/textViewStyle"/>
+                style="@style/textViewStyle" />
+
+            <LinearLayout
+                android:id="@+id/contactIconsLayout"
+                style="@style/SameWH_Layout"
+                android:background="@color/black"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/textMsgVector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:autoLink="all"
+                    app:srcCompat="@android:drawable/sym_action_chat" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/phoneCallVector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/call_icon" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/videoCallVector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/video_call" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/mailBoxVector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/email_icon" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/phoneNumLayout"
+                style="@style/SameWH_Layout"
+                android:background="@color/black"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/phoneTitleText"
+                    style="@style/textViewStyle"
+                    android:text="@string/user_phone"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/phoneNumText"
+                    style="@style/textViewStyle"
+                    android:autoLink="phone"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/emailAddLayout"
+                style="@style/SameWH_Layout"
+                android:background="@color/black"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/emailTitleText"
+                    style="@style/textViewStyle"
+                    android:text="@string/user_email"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/emailText"
+                    style="@style/textViewStyle"
+                    android:autoLink="email"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/locationLayout"
+                style="@style/SameWH_Layout"
+                android:background="@color/black"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/cityTitleText"
+                    style="@style/textViewStyle"
+                    android:text="@string/user_city"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/cityText"
+                    style="@style/textViewStyle"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/branchLayout"
+                style="@style/SameWH_Layout"
+                android:background="@color/black"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/fieldTitleText"
+                    style="@style/textViewStyle"
+                    android:text="@string/user_field"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/fieldText"
+                    style="@style/textViewStyle"
+                    android:textSize="16sp" />
+            </LinearLayout>
             <!--*******************"Tutorial 10"*******************-->
 
         </LinearLayout>

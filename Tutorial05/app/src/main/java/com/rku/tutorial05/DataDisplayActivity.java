@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,9 +18,9 @@ import classes.MyUtil;
 
 public class DataDisplayActivity extends AppCompatActivity {
     //*******************"Tutorial 08"*******************
-    TextView data, onlineData; //onlineData for Tutorial 10
+    TextView conView,fullname,gen,phone,email,city,field, onlineData; //onlineData for Tutorial 10
     MyDatabaseHelper myDB;
-    String userdata = "", valUserData = ""; //valUserData for Tutorial 10
+    String valUserData = ""; //valUserData for Tutorial 10
     //*******************"Tutorial 08"*******************
     int temp;
 
@@ -29,7 +30,14 @@ public class DataDisplayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_data_display);
 
         //*******************"Tutorial 08 (Offline Database userdata)"*******************
-        data = findViewById(R.id.DisplayTextView);
+        conView = findViewById(R.id.shortNameText);
+        fullname = findViewById(R.id.fullNameText);
+        gen = findViewById(R.id.genText);
+        phone = findViewById(R.id.phoneNumText);
+        email = findViewById(R.id.emailText);
+        city = findViewById(R.id.cityText);
+        field = findViewById(R.id.fieldText);
+        LinearLayout ll = (LinearLayout) findViewById(R.id.contactIconsLayout);
         Intent intent = getIntent();
         //*******************"Tutorial 08"*******************
 
@@ -37,8 +45,6 @@ public class DataDisplayActivity extends AppCompatActivity {
         onlineData = findViewById(R.id.onlineDataTextView);
         temp = intent.getIntExtra("temp",0);
         if(temp == 4){
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             int position = intent.getIntExtra("userPosition", 0);
             try {
                 JSONObject object = MyUtil.jsonArray.getJSONObject(position);
@@ -63,7 +69,10 @@ public class DataDisplayActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             onlineData.setText(valUserData);
-            data.setVisibility(View.GONE);
+            conView.setVisibility(View.GONE);
+            fullname.setVisibility(View.GONE);
+            gen.setVisibility(View.GONE);
+            ll.setVisibility(View.GONE);
 
         }
         else {
@@ -73,20 +82,22 @@ public class DataDisplayActivity extends AppCompatActivity {
             Toast.makeText(DataDisplayActivity.this, username, Toast.LENGTH_SHORT).show();
             Cursor cursor = myDB.getPartUserData(username);
             cursor.moveToFirst();
-            userdata += cursor.getString(1);
-            userdata += "\n" + cursor.getString(2);
-            userdata += "\n" + cursor.getString(3);
-            userdata += "\n" + cursor.getString(4);
-            userdata += "\n" + cursor.getString(5);
-            userdata += "\n" + cursor.getString(6);
-            userdata += "\n" + cursor.getString(7);
-            data.setText(userdata);
+            conView.setText(cursor.getString(1).substring(0,1)+cursor.getString(2).substring(0,1));
+            fullname.setText(cursor.getString(1)+" "+cursor.getString(2));
+            gen.setText(cursor.getString(6));
+            phone.setText(cursor.getString(4));
+            email.setText(cursor.getString(3));
+            city.setText(cursor.getString(7));
+            field.setText(cursor.getString(5));
             onlineData.setVisibility(View.GONE);
             //*******************"Tutorial 08"*******************
         }
         //*******************"Tutorial 10"*******************
     }
 
+    public void back_activity(View view) {
+        onBackPressed();
+    }
     //*******************"Tutorial 10 (Back button/key event management)"*******************
     @Override
     public void onBackPressed() {

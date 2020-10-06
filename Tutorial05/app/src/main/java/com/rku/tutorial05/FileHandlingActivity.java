@@ -19,20 +19,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import classes.MyUtil;
+
 public class FileHandlingActivity extends AppCompatActivity {
 
     //*****************"Tutorial 09"**********************
-    final String FILE_ASSETS = "data.json";
-    final String FILE_INTERNAL = "testFile.txt";
     EditText editTextDataFile;
     TextView filesView;
     //*****************"Tutorial 09"**********************
-    //*****************"Extra session management (For setting menu for multiActivity)"**********************
-//    SharedPreferences preferences;
-//    SharedPreferences.Editor editor;
-//    String onlinedata;
-    //*****************"Extra session management**********************
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,42 +36,12 @@ public class FileHandlingActivity extends AppCompatActivity {
         editTextDataFile = findViewById(R.id.editTextDataFile);
         filesView = findViewById(R.id.filesView);
         //*****************"Tutorial 09"**********************
-
-        //*****************"Extra session management (For managing back button)**********************
-//        getSupportActionBar().setHomeButtonEnabled(true);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        preferences = getSharedPreferences("session", MODE_PRIVATE);
-//        editor = preferences.edit();
-//        onlinedata = preferences.getString("onlinedata","");
-        //*****************"Extra session management**********************
-
     }
-
-    //*****************"Extra session management (For managing back button)**********************
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        Intent backIntent = new Intent(getApplicationContext(),WelcomeUsersActivity.class);
-//        if(onlinedata=="on"){
-//            backIntent.putExtra("temp",1);
-//        }else {
-//            backIntent.putExtra("temp",3);
-//        }
-//        startActivity(backIntent);
-//        this.finish();
-//    }
-//
-//    @Override
-//    public boolean onSupportNavigateUp() {
-//        onBackPressed();
-//        return true;
-//    }
-    //*****************"Extra session management**********************
 
     //*****************"Tutorial 09"**********************
     public void readAssets(View view) {
         try {
-            InputStream inputStream = getAssets().open(FILE_ASSETS);
+            InputStream inputStream = getAssets().open(MyUtil.FILE_ASSETS);
             InputStreamReader reader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(reader);
 
@@ -86,7 +50,7 @@ public class FileHandlingActivity extends AppCompatActivity {
             while ((temp = bufferedReader.readLine()) !=null){
                 strb.append(temp);
             }
-            filesView.setText("Data from "+FILE_ASSETS+" :\n" + strb.toString());
+            filesView.setText("Data from "+MyUtil.FILE_ASSETS+" :\n" + strb.toString());
             inputStream.close();
             reader.close();
             bufferedReader.close();
@@ -97,12 +61,12 @@ public class FileHandlingActivity extends AppCompatActivity {
 
     public void writeFiles(View view) {
         try {
-            FileOutputStream fOut = openFileOutput(FILE_INTERNAL, Context.MODE_PRIVATE);
+            FileOutputStream fOut = openFileOutput(MyUtil.FILE_INTERNAL, Context.MODE_PRIVATE);
             String InputData = editTextDataFile.getText().toString();
             fOut.write(InputData.getBytes());
             fOut.close();
             editTextDataFile.setText("");
-            Toast.makeText(this, "Data added to "+FILE_INTERNAL, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Data added to "+MyUtil.FILE_INTERNAL, Toast.LENGTH_SHORT).show();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -113,13 +77,13 @@ public class FileHandlingActivity extends AppCompatActivity {
 
     public void readFiles(View view) {
         try {
-            FileInputStream fin = openFileInput(FILE_INTERNAL);
+            FileInputStream fin = openFileInput(MyUtil.FILE_INTERNAL);
             int c;
             String temp = "";
             while((c = fin.read())!=-1){
                 temp = temp+String.valueOf((char)c);
             }
-            filesView.setText("Data from "+FILE_INTERNAL+" :\n"+temp);
+            filesView.setText("Data from "+MyUtil.FILE_INTERNAL+" :\n"+temp);
             fin.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();

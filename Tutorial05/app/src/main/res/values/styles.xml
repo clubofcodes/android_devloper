@@ -10,10 +10,26 @@
         <item name="android:itemBackground">@drawable/bg</item>
     </style>
 
-    <!-- Layout basics of application -->
-    <style name="LayoutStyle">
+    <!-- Users DataView Layout theme of application -->
+    <style name="NotificationBarStyle" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/red</item>
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+    <!-- LinearLayout Style of application -->
+    <style name="LinearLayoutStyle">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <!-- Other Layout having Same width_height style of application -->
+    <style name="SameWH_Layout">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@drawable/bg</item>
     </style>
 
     <!-- Titles TextView of application -->
@@ -107,6 +123,12 @@
         <item name="android:paddingStart">0dp</item>
         <item name="android:paddingEnd">0dp</item>
         <item name="android:spinnerMode">dialog</item>
+    </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@color/silver</item>
+        <item name="colorAccent">@color/black</item>
     </style>
 
 </resources>

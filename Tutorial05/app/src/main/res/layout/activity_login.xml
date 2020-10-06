@@ -4,15 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/loginCons"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    style="@style/SameWH_Layout"
     tools:context=".LoginActivity">
 
     <ScrollView
         android:id="@+id/loginscrollView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        style="@style/SameWH_Layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,9 +17,7 @@
 
         <LinearLayout
             android:id="@+id/loginLinearLayout"
-            style="@style/LayoutStyle"
-            android:orientation="vertical"
-            android:padding="20dp">
+            style="@style/LinearLayoutStyle">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/aboutUSimageview"

@@ -1,11 +1,17 @@
 package com.rku.tutorial05;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,12 +19,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,6 +59,7 @@ public class WelcomeUsersActivity extends AppCompatActivity {
     ListView onlineUserList;
     //*******************"Tutorial 10"*******************
     String mState;
+    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -72,10 +81,6 @@ public class WelcomeUsersActivity extends AppCompatActivity {
         if(temp == 3){
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            //*****************"Extra session management (For setting menu for multiActivity)"**********************
-//            editor.putString("onlinedata","off");
-//            editor.commit();
-            //*****************"Extra session management"**********************
             mState = "HIDE_MENU"; // setting state
             setTitle("Online Users");
             databaseUserList.setVisibility(View.GONE);
@@ -88,14 +93,35 @@ public class WelcomeUsersActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-            new MyAsyncTask().execute();
+            if(MyUtil.isOnline(this)){
+                new MyAsyncTask().execute();
+            }else {
+                builder = new AlertDialog.Builder(this,R.style.DialogTheme);
+                builder.setTitle("No Internet Connection")
+                        .setMessage("You need to have Mobile Data or wifi to access this. Press Cancel to Exit")
+                        .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent retryIntent = new Intent(WelcomeUsersActivity.this, WelcomeUsersActivity.class);
+                                retryIntent.putExtra("temp", 3);
+                                startActivity(retryIntent);
+                                finish();
+                            }
+                        })
+                        .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        });
+                AlertDialog errorDialog = builder.create();
+                errorDialog.show();
+//                Button buttonPositive = errorDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+//                buttonPositive.setTextColor(ContextCompat.getColor(this,R.color.red));
+            }
         }
         //*******************"Tutorial 10"*******************
         else {
-            //*****************"Extra session management (For setting menu for multiActivity)"**********************
-//            editor.putString("onlinedata","on");
-//            editor.commit();
-            //*****************"Extra session management"**********************
             //*******************"Tutorial 08"*******************
             onlineUserList.setVisibility(View.GONE);
             myDB = new MyDatabaseHelper(this);
@@ -134,8 +160,6 @@ public class WelcomeUsersActivity extends AppCompatActivity {
             });
             //*******************"Tutorial 08"*******************
         }
-
-
     }
 
     @Override
@@ -192,7 +216,7 @@ public class WelcomeUsersActivity extends AppCompatActivity {
     }
     //*****************"Tutorial 06"***********************
 
-    //*******************"Tutorial 10 (AsyncTask to read JSON file Data)"*******************
+    //*******************"Tutorial 10 (BackEnd Thread AsyncTask to read JSON file Data)"*******************
     class MyAsyncTask extends AsyncTask {
         ProgressDialog dialog;
         StringBuilder strb;
@@ -200,7 +224,7 @@ public class WelcomeUsersActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog = new ProgressDialog(WelcomeUsersActivity.this);
+            dialog = new ProgressDialog(WelcomeUsersActivity.this,R.style.DialogTheme);
             dialog.show();
         }
 
@@ -223,7 +247,6 @@ public class WelcomeUsersActivity extends AppCompatActivity {
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
-
             return null;
         }
 

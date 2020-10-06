@@ -2,7 +2,11 @@
   <dictionary name="RJ">
     <words>
       <w>emoji</w>
+      <w>fname</w>
+      <w>fullname</w>
+      <w>lname</w>
       <w>onlinedata</w>
+      <w>zipcode</w>
     </words>
   </dictionary>
 </component>

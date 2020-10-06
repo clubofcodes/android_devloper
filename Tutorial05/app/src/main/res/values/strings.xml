@@ -36,6 +36,16 @@
         <item>Other</item>
     </string-array>
 
+    <!--*********************User DataView Screen********************-->
+    <string name="short_name">SN</string>
+    <string name="user_full_name">Short Name</string>
+    <string name="user_gender">Gender</string>
+    <string name="user_phone">Phone</string>
+    <string name="user_email">Email</string>
+    <string name="user_field">Field</string>
+    <string name="user_city">City</string>
+    <string name="back_link">Back</string>
+
     <!--*********************FileHandling Screen*********************-->
     <string name="fileEditTxt">Enter your text here...</string>
     <string name="read_files">READ FILES</string>
