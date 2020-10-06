@@ -1,6 +1,7 @@
 package com.rku.tutorial05;
 
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,6 +28,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,6 +69,12 @@ public class WelcomeUsersActivity extends AppCompatActivity {
     //*******************"Tutorial 10"*******************
     String mState;
     AlertDialog.Builder builder;
+    //*******************"Tutorial 11 (class of volley library)"*******************
+    RequestQueue requestQueue;
+    StringRequest stringRequest;
+    JsonArrayRequest jsonArrayRequest;
+    ProgressDialog dialog;
+    //*****************"Tutorial 11"***********************
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -68,6 +83,10 @@ public class WelcomeUsersActivity extends AppCompatActivity {
 
         databaseUserList = findViewById(R.id.lstDataView);
         onlineUserList = findViewById(R.id.onlineUsersLstView);
+
+        //*******************"Tutorial 11 (Instantiate dialog object of ProgressDialog)"*******************
+        dialog = new ProgressDialog(WelcomeUsersActivity.this,R.style.DialogTheme);
+        //*****************"Tutorial 11"***********************
 
         //*****************"Tutorial 06"***********************
         preferences = getSharedPreferences("session", MODE_PRIVATE);
@@ -94,7 +113,10 @@ public class WelcomeUsersActivity extends AppCompatActivity {
                 }
             });
             if(MyUtil.isOnline(this)){
-                new MyAsyncTask().execute();
+                //new MyAsyncTask().execute();
+                //*****************"Tutorial 11(Online Users data view by StringRequest & JSONArray Request)"***********************
+                volleyNetworkCall();
+                //*****************"Tutorial 11"***********************
             }else {
                 builder = new AlertDialog.Builder(this,R.style.DialogTheme);
                 builder.setTitle("No Internet Connection")
@@ -116,8 +138,6 @@ public class WelcomeUsersActivity extends AppCompatActivity {
                         });
                 AlertDialog errorDialog = builder.create();
                 errorDialog.show();
-//                Button buttonPositive = errorDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-//                buttonPositive.setTextColor(ContextCompat.getColor(this,R.color.red));
             }
         }
         //*******************"Tutorial 10"*******************
@@ -161,6 +181,64 @@ public class WelcomeUsersActivity extends AppCompatActivity {
             //*******************"Tutorial 08"*******************
         }
     }
+
+    //*****************"Tutorial 11(External method for main logic)"***********************
+    private void volleyNetworkCall() {
+        //by using StringRequest
+        stringRequest = new StringRequest(
+                Request.Method.GET,
+                MyUtil.URL_USERS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            MyUtil.jsonArray = new JSONArray(response);
+                            onlineDataAdapter = new CustomAdapter(WelcomeUsersActivity.this,MyUtil.jsonArray);
+                            onlineUserList.setAdapter(onlineDataAdapter);
+                            if(dialog.isShowing())dialog.dismiss();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        if(dialog.isShowing())dialog.dismiss();
+                    }
+                }
+        );
+        requestQueue = Volley.newRequestQueue(WelcomeUsersActivity.this);
+        dialog.show();
+        requestQueue.add(stringRequest);
+
+        //by using JSONArray Request
+//        jsonArrayRequest = new JsonArrayRequest(
+//                Request.Method.GET,
+//                MyUtil.URL_USERS,
+//                null,
+//                new Response.Listener<JSONArray>() {
+//                    @Override
+//                    public void onResponse(JSONArray response) {
+//                        MyUtil.jsonArray = response;
+//                        onlineDataAdapter = new CustomAdapter(WelcomeUsersActivity.this, MyUtil.jsonArray);
+//                        onlineUserList.setAdapter(onlineDataAdapter);
+//                        if (dialog.isShowing()) dialog.dismiss();
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        if (dialog.isShowing()) dialog.dismiss();
+//                    }
+//                }
+//        );
+//        requestQueue = Volley.newRequestQueue(WelcomeUsersActivity.this);
+//        dialog.show();
+//        requestQueue.add(jsonArrayRequest);
+    }
+    //*****************"Tutorial 11"**********************
 
     @Override
     public void onBackPressed() {
@@ -218,7 +296,6 @@ public class WelcomeUsersActivity extends AppCompatActivity {
 
     //*******************"Tutorial 10 (BackEnd Thread AsyncTask to read JSON file Data)"*******************
     class MyAsyncTask extends AsyncTask {
-        ProgressDialog dialog;
         StringBuilder strb;
 
         @Override
