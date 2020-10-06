@@ -53,10 +53,6 @@
                 android:gravity="center"
                 android:text="@string/user_gender" />
 
-            <TextView
-                android:id="@+id/onlineDataTextView"
-                style="@style/textViewStyle" />
-
             <LinearLayout
                 android:id="@+id/contactIconsLayout"
                 style="@style/SameWH_Layout"
@@ -172,7 +168,29 @@
                 <TextView
                     android:id="@+id/fieldText"
                     style="@style/textViewStyle"
+                    android:autoLink="web"
                     android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/websiteLayout"
+                style="@style/SameWH_Layout"
+                android:background="@color/black"
+                android:padding="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/siteTitleText"
+                    style="@style/textViewStyle"
+                    android:textStyle="bold"
+                    android:text="@string/comp_website" />
+
+                <TextView
+                    android:id="@+id/siteText"
+                    style="@style/textViewStyle"
+                    android:autoLink="web"
+                    android:textSize="16sp"/>
             </LinearLayout>
             <!--*******************"Tutorial 10"*******************-->
 

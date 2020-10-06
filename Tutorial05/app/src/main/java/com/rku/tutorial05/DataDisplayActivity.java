@@ -18,7 +18,7 @@ import classes.MyUtil;
 
 public class DataDisplayActivity extends AppCompatActivity {
     //*******************"Tutorial 08"*******************
-    TextView conView,fullname,gen,phone,email,city,field, onlineData; //onlineData for Tutorial 10
+    TextView conView,fullname,gen,phone,email,city,field, siteTitle,site,loc,comp_add;
     MyDatabaseHelper myDB;
     String valUserData = ""; //valUserData for Tutorial 10
     //*******************"Tutorial 08"*******************
@@ -41,39 +41,42 @@ public class DataDisplayActivity extends AppCompatActivity {
         Intent intent = getIntent();
         //*******************"Tutorial 08"*******************
 
+        //*******************"Tutorial 11(Online data title change)"*******************
+        loc = findViewById(R.id.cityTitleText);
+        comp_add = findViewById(R.id.fieldTitleText);
+        site = findViewById(R.id.siteText);
+        siteTitle = findViewById(R.id.siteTitleText);
+        //*******************"Tutorial 11"*******************
+
+
         //*******************"Tutorial 10 (Online website dataView from json file)"*******************
-        onlineData = findViewById(R.id.onlineDataTextView);
         temp = intent.getIntExtra("temp",0);
         if(temp == 4){
             int position = intent.getIntExtra("userPosition", 0);
             try {
                 JSONObject object = MyUtil.jsonArray.getJSONObject(position);
-                valUserData += "Id : " + object.getString("id");
-                valUserData += "\nName : " + object.getString("name");
-                valUserData += "\nUsername : " + object.getString("username");
-                valUserData += "\nEmail : " + object.getString("email");
                 JSONObject addressObj = object.getJSONObject("address");
-                valUserData += "\nAddress : " +
-                        addressObj.getString("street") + ", " +
+                JSONObject companyObj = object.getJSONObject("company");
+
+                conView.setText(object.getString("id")); //id
+                fullname.setText(object.getString("name"));
+                gen.setText(object.getString("username")); //nickname
+                phone.setText(object.getString("phone"));
+                email.setText(object.getString("email"));
+                loc.setText("Address"); //user address
+                city.setText(addressObj.getString("street") + ", " +
                         addressObj.getString("suite") + ", " +
                         addressObj.getString("city") + ", " +
-                        addressObj.getString("zipcode");
-                valUserData += "\nPhone : " + object.getString("phone");
-                valUserData += "\nWebsite : " + object.getString("website");
-                JSONObject companyObj = object.getJSONObject("company");
-                valUserData += "\nAddress : " +
-                        companyObj.getString("name") + ", " +
+                        addressObj.getString("zipcode"));
+                comp_add.setText("Company Address");
+                field.setText(companyObj.getString("name") + ", " +
                         companyObj.getString("catchPhrase") + ", " +
-                        companyObj.getString("bs");
+                        companyObj.getString("bs"));
+                site.setText(object.getString("website"));
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            onlineData.setText(valUserData);
-            conView.setVisibility(View.GONE);
-            fullname.setVisibility(View.GONE);
-            gen.setVisibility(View.GONE);
-            ll.setVisibility(View.GONE);
-
         }
         else {
             //*******************"Tutorial 08 (dataView from Offline Database)"*******************
@@ -89,7 +92,8 @@ public class DataDisplayActivity extends AppCompatActivity {
             email.setText(cursor.getString(3));
             city.setText(cursor.getString(7));
             field.setText(cursor.getString(5));
-            onlineData.setVisibility(View.GONE);
+            site.setVisibility(View.GONE);
+            siteTitle.setVisibility(View.GONE);
             //*******************"Tutorial 08"*******************
         }
         //*******************"Tutorial 10"*******************
