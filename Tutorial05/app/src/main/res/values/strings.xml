@@ -20,13 +20,16 @@
     <string name="btn_logout">Logout</string>
 
     <!--*********************Signup Screen*********************-->
+    <string name="signup_title">Create your account</string>
     <string name="signUp_firstname">Enter your Firstname</string>
     <string name="signUp_lastname">Enter your Lastname</string>
-    <string name="sign_up_btn">Sign Up</string>
+    <string name="enter_your_number">Enter your number</string>
     <string name="reg_field">Branch CE/IT</string>
     <string name="gen_male">Male</string>
     <string name="gen_female">Female</string>
-    <string name="prof_status">Profile Status Active/Inactive</string>
+    <string name="TermsAndCond">I agree to the <a href="https://google.com">Terms &amp; Condition</a></string>
+    <string name="sign_up_btn">Sign Up</string>
+    <string name="update_btn">Update</string>
     <string name="login">Already a user? Login from here....!!</string>
     <string-array name="city">
         <item>Select Your City...</item>
@@ -43,14 +46,15 @@
     <string name="user_gender">Gender</string>
     <string name="user_phone">Phone</string>
     <string name="user_email">Email</string>
-    <string name="user_field">Field</string>
     <string name="user_city">City</string>
+    <string name="user_field">Field</string>
+    <string name="comp_website">Website</string>
     <string name="back_link">Back</string>
+    <string name="update_link">Edit</string>
 
     <!--*********************FileHandling Screen*********************-->
     <string name="fileEditTxt">Enter your text here...</string>
     <string name="read_files">READ FILES</string>
     <string name="read_assets">READ ASSETS</string>
     <string name="write_files">WRITE FILES</string>
-    <string name="comp_website">Website</string>
 </resources>

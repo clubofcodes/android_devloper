@@ -20,16 +20,12 @@
             android:id="@+id/signupScrollCon"
             style="@style/LinearLayoutStyle">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/signupImgView"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/signup_icon"
-                tools:ignore="MissingConstraints">
+            <TextView
+                android:id="@+id/signupTitleText"
+                style="@style/TitleStyle"
+                android:text="@string/signup_title">
 
-            </androidx.appcompat.widget.AppCompatImageView>
+            </TextView>
 
             <EditText
                 android:id="@+id/signupName"
@@ -61,10 +57,32 @@
                 android:hint="@string/enter_your_password"
                 android:inputType="textPassword" />
 
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/ccp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border"
+                android:padding="5dp"
+                app:ccpDialog_backgroundColor="@color/black"
+                app:ccpDialog_textColor="@color/white"
+                app:ccp_autoDetectCountry="true"
+                app:ccp_contentColor="@color/white"
+                app:ccp_showFlag="true"
+                app:ccp_showFullName="true"
+                app:ccp_showNameCode="true" />
+
+            <EditText
+                android:id="@+id/signupNumber"
+                style="@style/textBoxViewStyle"
+                android:autofillHints=""
+                android:drawableStart="@drawable/call_icon"
+                android:hint="@string/enter_your_number"
+                android:inputType="phone" />
+
             <RadioGroup
                 android:id="@+id/genderRadioGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/LinearLayoutStyle"
                 android:orientation="horizontal"
                 android:padding="10dp">
 
@@ -79,19 +97,19 @@
                 <RadioButton
                     android:id="@+id/MaleRadioButton"
                     style="@style/radioButton"
-                    app:autoSizeTextType="none"
-                    app:autoSizeMinTextSize="10sp"
-                    app:autoSizeMaxTextSize="100sp"
-                    app:autoSizeStepGranularity="2sp"
                     android:checked="true"
-                    android:text="@string/gen_male" />
+                    android:text="@string/gen_male"
+                    app:autoSizeMaxTextSize="100sp"
+                    app:autoSizeMinTextSize="10sp"
+                    app:autoSizeStepGranularity="2sp"
+                    app:autoSizeTextType="none" />
 
                 <RadioButton
                     android:id="@+id/FemaleRadioButton"
                     style="@style/radioButton"
                     android:text="@string/gen_female"
-                    app:autoSizeMinTextSize="10sp"
                     app:autoSizeMaxTextSize="100sp"
+                    app:autoSizeMinTextSize="10sp"
                     app:autoSizeStepGranularity="2sp"
                     app:autoSizeTextType="uniform" />
 
@@ -105,21 +123,28 @@
                 android:theme="@style/SpinnerTheme" />
 
             <CheckBox
-                android:id="@+id/statusCheckBox"
+                android:id="@+id/CheckBoxT_C"
                 style="@style/textViewStyle"
                 android:layout_marginTop="10dp"
-                android:text="@string/prof_status" />
+                android:text="@string/TermsAndCond" />
 
             <Button
                 android:id="@+id/signupbtn"
                 style="@style/ButtonStyle"
                 android:text="@string/sign_up_btn" />
 
+            <Button
+                android:id="@+id/updatebtn"
+                style="@style/ButtonStyle"
+                android:text="@string/update_btn"
+                android:visibility="gone" />
+
             <TextView
                 android:id="@+id/loginLink"
                 style="@style/textViewStyle"
                 android:gravity="center"
                 android:onClick="loginClick"
+                android:textColor="@color/red"
                 android:text="@string/login" />
 
         </LinearLayout>

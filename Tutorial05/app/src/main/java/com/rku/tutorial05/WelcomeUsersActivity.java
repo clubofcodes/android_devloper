@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -95,9 +96,11 @@ public class WelcomeUsersActivity extends AppCompatActivity {
 
 
         //*******************"Tutorial 10 (onlineUsers click event)"*******************
-        int temp = getIntent().getIntExtra("temp",0);
+        int temp = preferences.getInt("temp",0);
 
         if(temp == 3){
+            editor.putString("closeApp", "no");
+            editor.commit();
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             mState = "HIDE_MENU"; // setting state
@@ -108,8 +111,11 @@ public class WelcomeUsersActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Intent intent = new Intent(WelcomeUsersActivity.this, DataDisplayActivity.class);
                     intent.putExtra("userPosition",i);
-                    intent.putExtra("temp",4);
+                    editor.putInt("temp",4);
+                    editor.commit();
                     startActivity(intent);
+                    finish();
+
                 }
             });
             if(MyUtil.isOnline(this)){
@@ -124,9 +130,9 @@ public class WelcomeUsersActivity extends AppCompatActivity {
                         .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent retryIntent = new Intent(WelcomeUsersActivity.this, WelcomeUsersActivity.class);
-                                retryIntent.putExtra("temp", 3);
-                                startActivity(retryIntent);
+                                editor.putInt("temp",3);
+                                editor.commit();
+                                startActivity(new Intent(WelcomeUsersActivity.this, WelcomeUsersActivity.class));
                                 finish();
                             }
                         })
@@ -142,6 +148,8 @@ public class WelcomeUsersActivity extends AppCompatActivity {
         }
         //*******************"Tutorial 10"*******************
         else {
+            editor.putString("closeApp", "yes");
+            editor.commit();
             //*******************"Tutorial 08"*******************
             onlineUserList.setVisibility(View.GONE);
             myDB = new MyDatabaseHelper(this);
@@ -174,8 +182,9 @@ public class WelcomeUsersActivity extends AppCompatActivity {
                     String username = ((TextView) view).getText().toString();
                     Intent intent = new Intent(WelcomeUsersActivity.this, DataDisplayActivity.class);
                     intent.putExtra("username", username);
-                    intent.putExtra("temp", 2);
+                    editor.putInt("temp",2);
                     startActivity(intent);
+                    finish();
                 }
             });
             //*******************"Tutorial 08"*******************
@@ -243,10 +252,13 @@ public class WelcomeUsersActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent backIntent = new Intent(getApplicationContext(),WelcomeUsersActivity.class);
-        backIntent.putExtra("temp",1);
-        startActivity(backIntent);
-        this.finish();
+        String closeApp = preferences.getString("closeApp","");
+        if(closeApp == "no"){
+            editor.putInt("temp",1);
+            editor.commit();
+            startActivity(new Intent(getApplicationContext(),WelcomeUsersActivity.class));
+            finish();
+        }
     }
 
     @Override
@@ -278,13 +290,16 @@ public class WelcomeUsersActivity extends AppCompatActivity {
             //*****************"Tutorial 09"***********************
             //*****************"Tutorial 10"***********************
             case R.id.asyncTask:
-                Intent intent = new Intent(getApplicationContext(), WelcomeUsersActivity.class);
-                intent.putExtra("temp",3);
-                startActivity(intent);
+                editor.putInt("temp",3);
+                editor.commit();
+                startActivity(new Intent(getApplicationContext(), WelcomeUsersActivity.class));
+                finish();
                 break;
             //*****************"Tutorial 10"***********************
             case R.id.logout_menu:
                 editor.remove("email");
+                editor.remove("temp");
+                editor.remove("closeApp");
                 editor.commit();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();

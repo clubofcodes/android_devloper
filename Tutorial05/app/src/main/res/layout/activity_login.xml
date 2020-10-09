@@ -30,7 +30,7 @@
             </androidx.appcompat.widget.AppCompatImageView>
 
             <TextView
-                android:id="@+id/LoginTitle"
+                android:id="@+id/loginTitle"
                 style="@style/TitleStyle"
                 android:text="@string/title_name"/>
 
@@ -54,7 +54,7 @@
                 android:text="Rahul@123" />
 
             <Button
-                android:id="@+id/Loginbutton"
+                android:id="@+id/loginButton"
                 style="@style/ButtonStyle"
                 android:text="@string/button_name"/>
 
@@ -63,6 +63,7 @@
                 style="@style/textViewStyle"
                 android:gravity="center"
                 android:onClick="signupClick"
+                android:textColor="@color/red"
                 android:text="@string/register" />
         </LinearLayout>
     </ScrollView>

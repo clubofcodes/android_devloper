@@ -25,6 +25,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static  final String Signup_Table_Name = "registration";
     private static  final String fname = "first_name";
     private static  final String lname = "last_name";
+    private static  final String number = "phone";
     private static  final String branch = "branch";
     String ce_it = "Other";
     private static  final String gen = "gender";
@@ -43,7 +44,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 pass + " TEXT, " +
                 branch + " TEXT, " +
                 gen + " TEXT, " +
-                location + " TEXT);";
+                location + " TEXT, " +
+                number + " TEXT);";
         db.execSQL(query);
     }
     @Override
@@ -52,7 +54,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean reg_insert(String firstname, String lastname, String email, String password,Boolean field, String gender, String city){
+    public boolean reg_insert(String firstname, String lastname, String email, String password,Boolean field, String gender, String city,String phone){
         SQLiteDatabase db = this.getWritableDatabase();
         if(field){
             ce_it = "Branch CE/IT";
@@ -65,6 +67,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         values.put(branch,ce_it);
         values.put(gen,gender);
         values.put(location,city);
+        values.put(number,phone);
 
         long res = db.insert(Signup_Table_Name,null,values);
         return (res==-1)?false:true;
@@ -72,7 +75,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor checkLogin(String username, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query =  "select * from registration where email='"+ username +"' and password='"+ password+"'";;
+        String query =  "select * from registration where email='"+ username +"' and password='"+ password+"'";
         Cursor cursor = null;
         if(db!=null) {
             cursor = db.rawQuery(query, null);
@@ -103,7 +106,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
-    public Cursor getPartUserData(String username) {
+    public Cursor getPartUserData(String username) { //particular user data
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(
                 Signup_Table_Name,
@@ -117,4 +120,27 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
     //*****************"Tutorial 08"***********************
+
+    public boolean update(String firstname, String lastname, String email, String password,Boolean field, String gender, String city,String phone){
+        SQLiteDatabase db = this.getWritableDatabase();
+//        String up_query = "UPDATE registration  SET first_name ='"+ firstname +"', last_name='"+ lastname +"', email='"+ email +"', password='"+ password +"', branch='"+ ce_it +"', gender='"+ gender +"', city='"+ city +"', phone='"+ phone +"' WHERE email ='"+ email +"'";
+        if(field){
+            ce_it = "Branch CE/IT";
+        }
+        ContentValues values = new ContentValues();
+        values.put(fname,firstname);
+        values.put(lname,lastname);
+        values.put(user_id,email);
+        values.put(pass,password);
+        values.put(branch,ce_it);
+        values.put(gen,gender);
+        values.put(location,city);
+        values.put(number,phone);
+
+        String whereClause = "email=?";
+        String whereArgs[] = {email};
+
+        long res = db.update(Signup_Table_Name,values,whereClause,whereArgs);
+        return (res==-1)?false:true;
+    }
 }

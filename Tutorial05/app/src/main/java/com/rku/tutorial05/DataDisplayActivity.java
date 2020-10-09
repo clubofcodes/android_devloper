@@ -3,6 +3,7 @@ package com.rku.tutorial05;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -20,14 +21,17 @@ public class DataDisplayActivity extends AppCompatActivity {
     //*******************"Tutorial 08"*******************
     TextView conView,fullname,gen,phone,email,city,field, siteTitle,site,loc,comp_add;
     MyDatabaseHelper myDB;
-    String valUserData = ""; //valUserData for Tutorial 10
     //*******************"Tutorial 08"*******************
     int temp;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_display);
+        preferences = getSharedPreferences("session", MODE_PRIVATE);
+        editor = preferences.edit();
 
         //*******************"Tutorial 08 (Offline Database userdata)"*******************
         conView = findViewById(R.id.shortNameText);
@@ -37,7 +41,6 @@ public class DataDisplayActivity extends AppCompatActivity {
         email = findViewById(R.id.emailText);
         city = findViewById(R.id.cityText);
         field = findViewById(R.id.fieldText);
-        LinearLayout ll = (LinearLayout) findViewById(R.id.contactIconsLayout);
         Intent intent = getIntent();
         //*******************"Tutorial 08"*******************
 
@@ -48,16 +51,15 @@ public class DataDisplayActivity extends AppCompatActivity {
         siteTitle = findViewById(R.id.siteTitleText);
         //*******************"Tutorial 11"*******************
 
-
         //*******************"Tutorial 10 (Online website dataView from json file)"*******************
-        temp = intent.getIntExtra("temp",0);
+        temp = preferences.getInt("temp",0);
         if(temp == 4){
             int position = intent.getIntExtra("userPosition", 0);
             try {
                 JSONObject object = MyUtil.jsonArray.getJSONObject(position);
                 JSONObject addressObj = object.getJSONObject("address");
                 JSONObject companyObj = object.getJSONObject("company");
-
+                //dataView changes are for good view of user details in Tut11.
                 conView.setText(object.getString("id")); //id
                 fullname.setText(object.getString("name"));
                 gen.setText(object.getString("username")); //nickname
@@ -88,7 +90,7 @@ public class DataDisplayActivity extends AppCompatActivity {
             conView.setText(cursor.getString(1).substring(0,1)+cursor.getString(2).substring(0,1));
             fullname.setText(cursor.getString(1)+" "+cursor.getString(2));
             gen.setText(cursor.getString(6));
-            phone.setText(cursor.getString(4));
+            phone.setText(cursor.getString(8));
             email.setText(cursor.getString(3));
             city.setText(cursor.getString(7));
             field.setText(cursor.getString(5));
@@ -97,23 +99,44 @@ public class DataDisplayActivity extends AppCompatActivity {
             //*******************"Tutorial 08"*******************
         }
         //*******************"Tutorial 10"*******************
+
+
     }
 
     public void back_activity(View view) {
         onBackPressed();
     }
+    public void update_info(View view) {
+        Intent setDataIntent = new Intent(getApplicationContext(),SignupActivity.class);
+        setDataIntent.putExtra("update",1);
+        myDB = new MyDatabaseHelper(this);
+        String username = getIntent().getStringExtra("username");
+        Toast.makeText(DataDisplayActivity.this, username, Toast.LENGTH_SHORT).show();
+        Cursor cursor = myDB.getPartUserData(username);
+        cursor.moveToFirst();
+        setDataIntent.putExtra("username",username);
+        setDataIntent.putExtra("pwd",cursor.getString(4));
+        setDataIntent.putExtra("firstname",cursor.getString(1));
+        setDataIntent.putExtra("lastname",cursor.getString(2));
+        setDataIntent.putExtra("gender",cursor.getString(6));
+        setDataIntent.putExtra("number",cursor.getString(8));
+        setDataIntent.putExtra("city",cursor.getString(7));
+        setDataIntent.putExtra("field",cursor.getString(5));
+        startActivity(setDataIntent);
+        finish();
+    }
     //*******************"Tutorial 10 (Back button/key event management)"*******************
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(),WelcomeUsersActivity.class);
         if(temp == 4){
-            intent.putExtra("temp",3);
+            editor.putInt("temp",3);
         }else {
-            intent.putExtra("temp",1);
+            editor.putInt("temp",1);
         }
-        startActivity(intent);
-        this.finish();
+        editor.commit();
+        startActivity(new Intent(getApplicationContext(),WelcomeUsersActivity.class));
+        finish();
     }
     @Override
     public boolean onSupportNavigateUp() {

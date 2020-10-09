@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,9 +30,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        setTitle("Login in to " + getString(R.string.app_name11));
+        TextView loginTitle = findViewById(R.id.loginTitle);
+        loginTitle.setText("Login in to " + getString(R.string.app_name11));
         username=findViewById(R.id.editTextTextEmailAddress);
         password=findViewById(R.id.editTextTextPassword);
-        login=findViewById(R.id.Loginbutton);
+        login=findViewById(R.id.loginButton);
 
         //*******************"Tutorial 06"*******************
         preferences = getSharedPreferences("session", MODE_PRIVATE);
@@ -39,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
         String pref_email = preferences.getString("email","");
         if(!pref_email.equals("")){
             Intent intent = new Intent(LoginActivity.this, WelcomeUsersActivity.class);
+            editor.putInt("temp",1);
+            editor.commit();
             startActivity(intent);
             finish();
         }

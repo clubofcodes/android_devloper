@@ -1,33 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/SameWH_Layout"
+    android:background="@color/black"
     tools:context=".DataDisplayActivity">
+
+    <TextView
+        android:id="@+id/backClickbtn"
+        style="@style/textViewStyle"
+        android:layout_width="204dp"
+        android:layout_marginTop="10dp"
+        android:onClick="back_activity"
+        android:text="@string/back_link"
+        android:textColor="@color/red"
+        app:drawableStartCompat="@drawable/back_icon"
+        app:layout_constraintEnd_toStartOf="@+id/editClickbtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/editClickbtn"
+        style="@style/textViewStyle"
+        android:layout_width="204dp"
+        android:layout_marginTop="10dp"
+        android:gravity="end"
+        android:paddingStart="0dp"
+        android:paddingEnd="30dp"
+        android:text="@string/update_link"
+        android:textColor="@color/red"
+        android:onClick="update_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/backClickbtn"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:id="@+id/RegDisplayScroll"
         style="@style/SameWH_Layout"
+        android:layout_marginTop="40dp"
         android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/backClickbtn">
 
         <LinearLayout
             android:id="@+id/userDetailsLayout"
             style="@style/LinearLayoutStyle">
-
-            <TextView
-                android:id="@+id/backClickbtn"
-                style="@style/textViewStyle"
-                android:layout_width="100dp"
-                android:layout_marginStart="5dp"
-                android:onClick="back_activity"
-                android:text="@string/back_link"
-                android:textColor="@color/red"
-                app:drawableStartCompat="@drawable/back_icon" />
 
             <TextView
                 android:id="@+id/shortNameText"
@@ -39,7 +58,7 @@
                 android:background="@drawable/contact_sn_bg"
                 android:gravity="center"
                 android:text="@string/short_name"
-                android:textSize="45sp" />
+                android:textSize="40sp" />
 
             <TextView
                 android:id="@+id/fullNameText"
@@ -177,20 +196,20 @@
                 android:id="@+id/websiteLayout"
                 style="@style/SameWH_Layout"
                 android:background="@color/black"
-                android:padding="10dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="10dp">
 
                 <TextView
                     android:id="@+id/siteTitleText"
                     style="@style/textViewStyle"
-                    android:textStyle="bold"
-                    android:text="@string/comp_website" />
+                    android:text="@string/comp_website"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/siteText"
                     style="@style/textViewStyle"
                     android:autoLink="web"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
             </LinearLayout>
             <!--*******************"Tutorial 10"*******************-->
 
