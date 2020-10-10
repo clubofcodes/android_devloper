@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">Tutorial 12</string>
     <string name="app_name05">Tutorial 05</string>
     <string name="app_name06">Tutorial 06</string>
     <string name="app_name07">Tutorial 07</string>
@@ -57,4 +58,5 @@
     <string name="read_files">READ FILES</string>
     <string name="read_assets">READ ASSETS</string>
     <string name="write_files">WRITE FILES</string>
+    <string name="anim_duration_medium">800</string>
 </resources>

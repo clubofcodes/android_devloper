@@ -288,7 +288,7 @@ public class WelcomeUsersActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),FileHandlingActivity.class));
                 break;
             //*****************"Tutorial 09"***********************
-            //*****************"Tutorial 10"***********************
+            //*****************"Tutorial 10(To add into menu list)"***********************
             case R.id.asyncTask:
                 editor.putInt("temp",3);
                 editor.commit();
@@ -296,6 +296,11 @@ public class WelcomeUsersActivity extends AppCompatActivity {
                 finish();
                 break;
             //*****************"Tutorial 10"***********************
+            //*******************"Tutorial 12(To add into menu list)"*******************
+            case R.id.rcvView:
+                startActivity(new Intent(getApplicationContext(),RecyclerActivity.class));
+                break;
+            //*******************"Tutorial 12"*******************
             case R.id.logout_menu:
                 editor.remove("email");
                 editor.remove("temp");

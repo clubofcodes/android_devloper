@@ -11,6 +11,10 @@
     <item android:title="Online Users"
         android:id="@+id/asyncTask"/>
     <!--*****************"Tutorial 10"***********************-->
+    <!--*******************"Tutorial 12(To add in Menu List)"*******************-->
+    <item android:title="Recycler View"
+        android:id="@+id/rcvView"/>
+    <!--*****************"Tutorial 12"***********************-->
     <item android:title="Logout"
     android:id="@+id/logout_menu"/>
     <!--*****************"Tutorial 06"***********************-->

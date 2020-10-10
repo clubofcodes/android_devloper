@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rku.tutorial05.R;
@@ -43,6 +44,7 @@ public class CustomAdapter extends BaseAdapter {
 
             TextView txtName =(TextView) view.findViewById(R.id.listTxtName);
             TextView txtEmail =(TextView) view.findViewById(R.id.listTxtEmail);
+            LinearLayout emailPhoneLayout = (LinearLayout) view.findViewById(R.id.emailPhoneLayout);
 
             try {
                 JSONObject object = jsonArray.getJSONObject(i);
@@ -50,6 +52,8 @@ public class CustomAdapter extends BaseAdapter {
                 txtEmail.setText("Email: " + object.getString("email"));
                 txtName.setTextColor(Color.RED);
                 txtEmail.setTextColor(Color.RED);
+                txtEmail.setVisibility(View.VISIBLE);
+                emailPhoneLayout.setVisibility(View.GONE);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -6,43 +6,49 @@
     android:background="@color/black"
     tools:context=".DataDisplayActivity">
 
-    <TextView
-        android:id="@+id/backClickbtn"
-        style="@style/textViewStyle"
-        android:layout_width="204dp"
-        android:layout_marginTop="10dp"
-        android:onClick="back_activity"
-        android:text="@string/back_link"
-        android:textColor="@color/red"
-        app:drawableStartCompat="@drawable/back_icon"
-        app:layout_constraintEnd_toStartOf="@+id/editClickbtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/editClickbtn"
-        style="@style/textViewStyle"
-        android:layout_width="204dp"
-        android:layout_marginTop="10dp"
-        android:gravity="end"
-        android:paddingStart="0dp"
-        android:paddingEnd="30dp"
-        android:text="@string/update_link"
-        android:textColor="@color/red"
-        android:onClick="update_info"
+    <LinearLayout
+        android:id="@+id/btnLinearLayout"
+        style="@style/LinearLayoutStyle"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/RegDisplayScroll"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/backClickbtn"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/backClickbtn"
+            style="@style/textViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_gravity="start"
+            android:layout_weight="4"
+            android:onClick="back_activity"
+            android:text="@string/back_link"
+            android:textColor="@color/red"
+            app:drawableStartCompat="@drawable/back_icon" />
+
+        <TextView
+            android:id="@+id/editClickbtn"
+            style="@style/textViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="5"
+            android:gravity="end"
+            android:onClick="update_info"
+            android:paddingStart="0dp"
+            android:paddingEnd="30dp"
+            android:text="@string/update_link"
+            android:textColor="@color/red" />
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/RegDisplayScroll"
         style="@style/SameWH_Layout"
-        android:layout_marginTop="40dp"
+        android:layout_height="0dp"
         android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backClickbtn">
+        app:layout_constraintTop_toBottomOf="@+id/btnLinearLayout">
 
         <LinearLayout
             android:id="@+id/userDetailsLayout"
@@ -54,7 +60,6 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
                 android:background="@drawable/contact_sn_bg"
                 android:gravity="center"
                 android:text="@string/short_name"

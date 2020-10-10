@@ -30,9 +30,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        setTitle("Login in to " + getString(R.string.app_name11));
+        setTitle("Login in to " + getString(R.string.app_name));
         TextView loginTitle = findViewById(R.id.loginTitle);
-        loginTitle.setText("Login in to " + getString(R.string.app_name11));
+        loginTitle.setText("Login in to " + getString(R.string.app_name));
         username=findViewById(R.id.editTextTextEmailAddress);
         password=findViewById(R.id.editTextTextPassword);
         login=findViewById(R.id.loginButton);

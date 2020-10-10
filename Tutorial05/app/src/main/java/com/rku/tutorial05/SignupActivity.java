@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import validations.Validation;
 
 public class SignupActivity extends AppCompatActivity {
     Button signup, update;
+    TextView reg_title,loginLink;
     EditText fname,lname,email,pass,number;
     Switch field;
     RadioGroup gen_grp;
@@ -40,9 +42,11 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        setTitle("Join " + getString(R.string.app_name11));
+        setTitle("Join " + getString(R.string.app_name));
 
         //EditText Fields
+        reg_title = findViewById(R.id.signupTitleText);
+        loginLink = findViewById(R.id.loginLink);
         fname = findViewById(R.id.signupName);
         lname = findViewById(R.id.signupSurname);
         email = findViewById(R.id.signupEmail);
@@ -65,6 +69,8 @@ public class SignupActivity extends AppCompatActivity {
 
         int update_per = getIntent().getIntExtra("update",0);
         if(update_per == 1){
+            setTitle("Update Data");
+            reg_title.setText("Update your details");
             String username_val = getIntent().getStringExtra("username");
             String password_val = getIntent().getStringExtra("pwd");
             String firstname_val = getIntent().getStringExtra("firstname");
@@ -122,10 +128,10 @@ public class SignupActivity extends AppCompatActivity {
                 }
             });
             signup.setVisibility(View.GONE);
+            loginLink.setVisibility(View.GONE);
             update.setVisibility(View.VISIBLE);
         }
         else {
-
             signup.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

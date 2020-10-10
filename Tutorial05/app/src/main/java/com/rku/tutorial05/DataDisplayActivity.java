@@ -54,6 +54,8 @@ public class DataDisplayActivity extends AppCompatActivity {
         //*******************"Tutorial 10 (Online website dataView from json file)"*******************
         temp = preferences.getInt("temp",0);
         if(temp == 4){
+            TextView edit = findViewById(R.id.editClickbtn);
+            edit.setVisibility(View.GONE);
             int position = intent.getIntExtra("userPosition", 0);
             try {
                 JSONObject object = MyUtil.jsonArray.getJSONObject(position);
@@ -84,7 +86,6 @@ public class DataDisplayActivity extends AppCompatActivity {
             //*******************"Tutorial 08 (dataView from Offline Database)"*******************
             myDB = new MyDatabaseHelper(this);
             String username = intent.getStringExtra("username");
-            Toast.makeText(DataDisplayActivity.this, username, Toast.LENGTH_SHORT).show();
             Cursor cursor = myDB.getPartUserData(username);
             cursor.moveToFirst();
             conView.setText(cursor.getString(1).substring(0,1)+cursor.getString(2).substring(0,1));
@@ -111,7 +112,6 @@ public class DataDisplayActivity extends AppCompatActivity {
         setDataIntent.putExtra("update",1);
         myDB = new MyDatabaseHelper(this);
         String username = getIntent().getStringExtra("username");
-        Toast.makeText(DataDisplayActivity.this, username, Toast.LENGTH_SHORT).show();
         Cursor cursor = myDB.getPartUserData(username);
         cursor.moveToFirst();
         setDataIntent.putExtra("username",username);
