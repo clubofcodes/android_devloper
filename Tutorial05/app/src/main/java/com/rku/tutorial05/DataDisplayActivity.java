@@ -52,7 +52,7 @@ public class DataDisplayActivity extends AppCompatActivity {
         //*******************"Tutorial 11"*******************
 
         //*******************"Tutorial 10 (Online website dataView from json file)"*******************
-        temp = preferences.getInt("temp",0);
+        temp = getIntent().getIntExtra("temp",0);
         if(temp == 4){
             TextView edit = findViewById(R.id.editClickbtn);
             edit.setVisibility(View.GONE);

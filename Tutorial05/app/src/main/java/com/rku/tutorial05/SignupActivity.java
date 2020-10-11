@@ -1,7 +1,6 @@
 package com.rku.tutorial05;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -128,7 +127,7 @@ public class SignupActivity extends AppCompatActivity {
                 }
             });
             signup.setVisibility(View.GONE);
-            loginLink.setVisibility(View.GONE);
+            loginLink.setText("Cancel");
             update.setVisibility(View.VISIBLE);
         }
         else {
@@ -192,8 +191,6 @@ public class SignupActivity extends AppCompatActivity {
                 }
             });
         }
-
-
     }
 
     public void loginClick(View view) {

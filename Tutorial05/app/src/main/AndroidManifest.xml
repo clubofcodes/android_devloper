@@ -43,8 +43,6 @@
             android:label="File Handling"
             android:parentActivityName=".WelcomeUsersActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".RecyclerActivity"
-            android:parentActivityName=".WelcomeUsersActivity"/>
     </application>
 
 </manifest>

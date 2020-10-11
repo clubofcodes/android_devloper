@@ -5,34 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/welCons"
     style="@style/SameWH_Layout"
+    android:padding="10dp"
     tools:context=".WelcomeUsersActivity">
 
-    <!--*******************"Tutorial 08"*******************-->
-
-    <ListView
-        android:id="@+id/lstDataView"
+    <!--*******************"Tutorial 08(Offline Users List), 10, 12(online Users List)"*******************-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/AllTypeUsersList"
         style="@style/SameWH_Layout"
-        android:padding="5dp"
+        android:layoutAnimation="@anim/layout_animation_fall_down"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </ListView>
-    <!--*******************"Tutorial 10 (onlineUsers List)"*******************-->
-    <ListView
-        android:id="@+id/onlineUsersLstView"
-        style="@style/SameWH_Layout"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </ListView>
-    <!--*******************"Tutorial 10"*******************-->
-
-    <!--*******************"Tutorial 08"*******************-->
+    <!--*******************"Tutorial 08, 10, 12"*******************-->
 </androidx.constraintlayout.widget.ConstraintLayout>

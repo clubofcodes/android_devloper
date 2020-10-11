@@ -1,41 +1,33 @@
 package com.rku.tutorial05;
 
 import android.app.AlertDialog;
-import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -46,10 +38,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
-import classes.CustomAdapter;
 import classes.MyDatabaseHelper;
 import classes.MyUtil;
+import classes.OfllineDataAdapter;
+import classes.OnlineDataAdapter;
 
 public class WelcomeUsersActivity extends AppCompatActivity {
     //*****************"Tutorial 06"***********************
@@ -58,21 +52,18 @@ public class WelcomeUsersActivity extends AppCompatActivity {
     //*****************"Tutorial 06"***********************
 
     //*******************"Tutorial 08"*******************
-    ListView databaseUserList;
+    RecyclerView AllTypeUserList; //Tut 10, 12
+    OfllineDataAdapter offlineData;
     MyDatabaseHelper myDB;
-    ArrayAdapter<String> adapter;
-//    String data[]={"XYZ","ABC"};
     //*******************"Tutorial 08"*******************
 
     //*******************"Tutorial 10"*******************
-    CustomAdapter onlineDataAdapter;
-    ListView onlineUserList;
+    OnlineDataAdapter onlineData; //Tut 12
     //*******************"Tutorial 10"*******************
     String mState;
     AlertDialog.Builder builder;
     //*******************"Tutorial 11 (class of volley library)"*******************
     RequestQueue requestQueue;
-    StringRequest stringRequest;
     JsonArrayRequest jsonArrayRequest;
     ProgressDialog dialog;
     //*****************"Tutorial 11"***********************
@@ -82,8 +73,18 @@ public class WelcomeUsersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_users);
 
-        databaseUserList = findViewById(R.id.lstDataView);
-        onlineUserList = findViewById(R.id.onlineUsersLstView);
+        AllTypeUserList = findViewById(R.id.AllTypeUsersList);
+        //use this setting to improve performance if you know that changes
+        //in content do not changes the layout size of the RecyclerView
+        AllTypeUserList.setHasFixedSize(true);
+        //use a linear layout manager
+        AllTypeUserList.setLayoutManager(new LinearLayoutManager(this));
+        //Add Divider
+        DividerItemDecoration dividerItemDecoration =
+                new DividerItemDecoration(AllTypeUserList.getContext(),LinearLayoutManager.VERTICAL);
+        Drawable whiteDivider = ContextCompat.getDrawable(getApplicationContext(), R.drawable.line_divider);
+        dividerItemDecoration.setDrawable(whiteDivider);
+        AllTypeUserList.addItemDecoration(dividerItemDecoration);
 
         //*******************"Tutorial 11 (Instantiate dialog object of ProgressDialog)"*******************
         dialog = new ProgressDialog(WelcomeUsersActivity.this,R.style.DialogTheme);
@@ -97,7 +98,6 @@ public class WelcomeUsersActivity extends AppCompatActivity {
 
         //*******************"Tutorial 10 (onlineUsers click event)"*******************
         int temp = preferences.getInt("temp",0);
-
         if(temp == 3){
             editor.putString("closeApp", "no");
             editor.commit();
@@ -105,25 +105,16 @@ public class WelcomeUsersActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             mState = "HIDE_MENU"; // setting state
             setTitle("Online Users");
-            databaseUserList.setVisibility(View.GONE);
-            onlineUserList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Intent intent = new Intent(WelcomeUsersActivity.this, DataDisplayActivity.class);
-                    intent.putExtra("userPosition",i);
-                    editor.putInt("temp",4);
-                    editor.commit();
-                    startActivity(intent);
-                    finish();
-
-                }
-            });
+            //*******************"Tutorial 12(RecyclerView Java class for fetching online data using Volley)"*******************
             if(MyUtil.isOnline(this)){
                 //new MyAsyncTask().execute();
                 //*****************"Tutorial 11(Online Users data view by StringRequest & JSONArray Request)"***********************
                 volleyNetworkCall();
                 //*****************"Tutorial 11"***********************
-            }else {
+
+                //*******************"Tutorial 12(RecyclerView Java class for fetching online data using Volley)"*******************
+            }
+            else {
                 builder = new AlertDialog.Builder(this,R.style.DialogTheme);
                 builder.setTitle("No Internet Connection")
                         .setMessage("You need to have Mobile Data or wifi to access this. Press Cancel to Exit")
@@ -146,69 +137,37 @@ public class WelcomeUsersActivity extends AppCompatActivity {
                 errorDialog.show();
             }
         }
+        else{
         //*******************"Tutorial 10"*******************
-        else {
             editor.putString("closeApp", "yes");
             editor.commit();
             //*******************"Tutorial 08"*******************
-            onlineUserList.setVisibility(View.GONE);
             myDB = new MyDatabaseHelper(this);
-
-            adapter = new ArrayAdapter<String>(
-                    this,
-                    android.R.layout.simple_list_item_1,
-//                data,
-                    myDB.getUserList()
-            ) {
-                @Override
-                public View getView(int position, View convertView, ViewGroup parent) {
-                    // Get the Item from ListView
-                    View view = super.getView(position, convertView, parent);
-
-                    // Initialize a TextView for ListView each Item
-                    TextView tv = (TextView) view.findViewById(android.R.id.text1);
-
-                    // Set the text color of TextView (ListView Item)
-                    tv.setTextColor(Color.RED);
-
-                    // Generate ListView Item using TextView
-                    return view;
-                }
-            };
-            databaseUserList.setAdapter(adapter);
-            databaseUserList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    String username = ((TextView) view).getText().toString();
-                    Intent intent = new Intent(WelcomeUsersActivity.this, DataDisplayActivity.class);
-                    intent.putExtra("username", username);
-                    editor.putInt("temp",2);
-                    startActivity(intent);
-                    finish();
-                }
-            });
+            ArrayList<String> list = myDB.getUserList();
+            offlineData = new OfllineDataAdapter(WelcomeUsersActivity.this,list);
+            AllTypeUserList.setAdapter(offlineData);
             //*******************"Tutorial 08"*******************
         }
     }
 
-    //*****************"Tutorial 11(External method for main logic)"***********************
+    //*****************"Tutorial 11(External method for onlineData fetching logic)"***********************
     private void volleyNetworkCall() {
-        //by using StringRequest
-        stringRequest = new StringRequest(
+        //by using JSONArray Request
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 MyUtil.URL_USERS,
-                new Response.Listener<String>() {
+                null,
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(String response) {
-                        try {
-                            MyUtil.jsonArray = new JSONArray(response);
-                            onlineDataAdapter = new CustomAdapter(WelcomeUsersActivity.this,MyUtil.jsonArray);
-                            onlineUserList.setAdapter(onlineDataAdapter);
-                            if(dialog.isShowing())dialog.dismiss();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
+                    public void onResponse(JSONArray response) {
+                        MyUtil.jsonArray = response;
+                        //*****************"Tutorial 12(Adapter Object instantiate)"***********************
+                        onlineData = new OnlineDataAdapter(WelcomeUsersActivity.this,response);
+                        AllTypeUserList.setAdapter(onlineData);
+                        onlineData.notifyDataSetChanged();
+                        //*****************"Tutorial 12"***********************
+                        if(dialog.isShowing())dialog.dismiss();
                     }
                 },
                 new Response.ErrorListener() {
@@ -218,34 +177,8 @@ public class WelcomeUsersActivity extends AppCompatActivity {
                     }
                 }
         );
-        requestQueue = Volley.newRequestQueue(WelcomeUsersActivity.this);
-        dialog.show();
-        requestQueue.add(stringRequest);
-
-        //by using JSONArray Request
-//        jsonArrayRequest = new JsonArrayRequest(
-//                Request.Method.GET,
-//                MyUtil.URL_USERS,
-//                null,
-//                new Response.Listener<JSONArray>() {
-//                    @Override
-//                    public void onResponse(JSONArray response) {
-//                        MyUtil.jsonArray = response;
-//                        onlineDataAdapter = new CustomAdapter(WelcomeUsersActivity.this, MyUtil.jsonArray);
-//                        onlineUserList.setAdapter(onlineDataAdapter);
-//                        if (dialog.isShowing()) dialog.dismiss();
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        if (dialog.isShowing()) dialog.dismiss();
-//                    }
-//                }
-//        );
-//        requestQueue = Volley.newRequestQueue(WelcomeUsersActivity.this);
 //        dialog.show();
-//        requestQueue.add(jsonArrayRequest);
+        requestQueue.add(jsonArrayRequest);
     }
     //*****************"Tutorial 11"**********************
 
@@ -260,7 +193,6 @@ public class WelcomeUsersActivity extends AppCompatActivity {
             finish();
         }
     }
-
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -288,19 +220,14 @@ public class WelcomeUsersActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),FileHandlingActivity.class));
                 break;
             //*****************"Tutorial 09"***********************
-            //*****************"Tutorial 10(To add into menu list)"***********************
+            //*****************"Tutorial 10, 12(To add into menu list)"***********************
             case R.id.asyncTask:
                 editor.putInt("temp",3);
                 editor.commit();
                 startActivity(new Intent(getApplicationContext(), WelcomeUsersActivity.class));
                 finish();
                 break;
-            //*****************"Tutorial 10"***********************
-            //*******************"Tutorial 12(To add into menu list)"*******************
-            case R.id.rcvView:
-                startActivity(new Intent(getApplicationContext(),RecyclerActivity.class));
-                break;
-            //*******************"Tutorial 12"*******************
+            //*****************"Tutorial 10, 12"***********************
             case R.id.logout_menu:
                 editor.remove("email");
                 editor.remove("temp");
@@ -350,8 +277,8 @@ public class WelcomeUsersActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
-            onlineDataAdapter = new CustomAdapter(WelcomeUsersActivity.this,MyUtil.jsonArray);
-            onlineUserList.setAdapter(onlineDataAdapter);
+            onlineData = new OnlineDataAdapter(getApplicationContext(),MyUtil.jsonArray);
+            AllTypeUserList.setAdapter(onlineData);
             if(dialog.isShowing()){
                 dialog.dismiss();
             }

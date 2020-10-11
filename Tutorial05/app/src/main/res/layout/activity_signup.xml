@@ -80,11 +80,11 @@
                 android:hint="@string/enter_your_number"
                 android:inputType="phone" />
 
-            <RadioGroup
-                android:id="@+id/genderRadioGroup"
-                style="@style/LinearLayoutStyle"
-                android:orientation="horizontal"
-                android:padding="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:orientation="horizontal">
 
                 <!--android:track="@drawable/switch_track_custom"-->
                 <Switch
@@ -94,26 +94,35 @@
                     android:theme="@style/SwitchTheme"
                     tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-                <RadioButton
-                    android:id="@+id/MaleRadioButton"
-                    style="@style/radioButton"
-                    android:checked="true"
-                    android:text="@string/gen_male"
-                    app:autoSizeMaxTextSize="100sp"
-                    app:autoSizeMinTextSize="10sp"
-                    app:autoSizeStepGranularity="2sp"
-                    app:autoSizeTextType="none" />
+                <RadioGroup
+                    android:id="@+id/genderRadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:gravity="end"
+                    android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/FemaleRadioButton"
-                    style="@style/radioButton"
-                    android:text="@string/gen_female"
-                    app:autoSizeMaxTextSize="100sp"
-                    app:autoSizeMinTextSize="10sp"
-                    app:autoSizeStepGranularity="2sp"
-                    app:autoSizeTextType="uniform" />
+                    <RadioButton
+                        android:id="@+id/MaleRadioButton"
+                        style="@style/radioButton"
+                        android:autoSizeMaxTextSize="18sp"
+                        android:autoSizeMinTextSize="2sp"
+                        android:autoSizeTextType="uniform"
+                        android:checked="true"
+                        android:text="@string/gen_male"
+                        app:autoSizeStepGranularity="2sp" />
 
-            </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/FemaleRadioButton"
+                        style="@style/radioButton"
+                        android:autoSizeMaxTextSize="18sp"
+                        android:autoSizeMinTextSize="2sp"
+                        android:autoSizeTextType="uniform"
+                        android:text="@string/gen_female"
+                        app:autoSizeStepGranularity="2sp" />
+
+                </RadioGroup>
+            </LinearLayout>
 
             <Spinner
                 android:id="@+id/citySpinner"
@@ -126,6 +135,7 @@
                 android:id="@+id/CheckBoxT_C"
                 style="@style/textViewStyle"
                 android:layout_marginTop="10dp"
+                android:gravity="center|start"
                 android:text="@string/TermsAndCond" />
 
             <Button

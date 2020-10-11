@@ -53,10 +53,11 @@
     <string name="back_link">Back</string>
     <string name="update_link">Edit</string>
 
+    <string name="anim_duration_medium">1000</string>
+
     <!--*********************FileHandling Screen*********************-->
     <string name="fileEditTxt">Enter your text here...</string>
     <string name="read_files">READ FILES</string>
     <string name="read_assets">READ ASSETS</string>
     <string name="write_files">WRITE FILES</string>
-    <string name="anim_duration_medium">800</string>
 </resources>
