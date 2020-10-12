@@ -2,24 +2,28 @@ package com.rku.tutorial05;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,6 +33,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,6 +60,7 @@ public class WelcomeUsersActivity extends AppCompatActivity {
     RecyclerView AllTypeUserList; //Tut 10, 12
     OfllineDataAdapter offlineData;
     MyDatabaseHelper myDB;
+    ArrayList<String> list;
     //*******************"Tutorial 08"*******************
 
     //*******************"Tutorial 10"*******************
@@ -68,12 +74,18 @@ public class WelcomeUsersActivity extends AppCompatActivity {
     ProgressDialog dialog;
     //*****************"Tutorial 11"***********************
 
+    LinearLayout dataViewLinearLayout;
+    private Paint mClearPaint;
+    private Drawable deleteDrawable;
+    private int intrinsicWidth;
+    private int intrinsicHeight;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_users);
 
         AllTypeUserList = findViewById(R.id.AllTypeUsersList);
+        dataViewLinearLayout = findViewById(R.id.dataViewLinearLayout);
         //use this setting to improve performance if you know that changes
         //in content do not changes the layout size of the RecyclerView
         AllTypeUserList.setHasFixedSize(true);
@@ -143,12 +155,67 @@ public class WelcomeUsersActivity extends AppCompatActivity {
             editor.commit();
             //*******************"Tutorial 08"*******************
             myDB = new MyDatabaseHelper(this);
-            ArrayList<String> list = myDB.getUserList();
+            list = myDB.getUserList();
             offlineData = new OfllineDataAdapter(WelcomeUsersActivity.this,list);
+            new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(AllTypeUserList);
             AllTypeUserList.setAdapter(offlineData);
             //*******************"Tutorial 08"*******************
         }
     }
+
+    ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
+            new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
+                @Override
+                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                    return false;
+                }
+
+                @Override
+                public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
+                    builder = new AlertDialog.Builder(WelcomeUsersActivity.this,R.style.DialogTheme);
+                    builder.setTitle("Warning!!")
+                            .setMessage("Are You Sure You Want To Delete.")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            myDB.user_del(viewHolder.itemView.getTransitionName());
+                            list.remove(viewHolder.getAdapterPosition());
+                        }
+                    })
+                    .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog del_dialog = builder.create();
+                    del_dialog.show();
+                    offlineData.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                    super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+                    View itemView = viewHolder.itemView;
+                    int itemHeight = itemView.getHeight();
+
+                    mClearPaint = new Paint();
+                    mClearPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+                    deleteDrawable = ContextCompat.getDrawable(WelcomeUsersActivity.this, R.drawable.ic_delete);
+                    intrinsicWidth = deleteDrawable.getIntrinsicWidth();
+                    intrinsicHeight = deleteDrawable.getIntrinsicHeight();
+
+                    int deleteIconTop = itemView.getTop() + (itemHeight - intrinsicHeight) / 2;
+                    int deleteIconMargin = (itemHeight - intrinsicHeight) / 2;
+                    int deleteIconLeft = itemView.getRight() - deleteIconMargin - intrinsicWidth;
+                    int deleteIconRight = itemView.getRight() - deleteIconMargin;
+                    int deleteIconBottom = deleteIconTop + intrinsicHeight;
+
+                    deleteDrawable.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom);
+                    deleteDrawable.draw(c);
+
+                }
+            };
 
     //*****************"Tutorial 11(External method for onlineData fetching logic)"***********************
     private void volleyNetworkCall() {

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.ArrayAdapter;
 
 import androidx.annotation.Nullable;
 
@@ -123,7 +122,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public boolean update(String firstname, String lastname, String email, String password,Boolean field, String gender, String city,String phone){
         SQLiteDatabase db = this.getWritableDatabase();
-//        String up_query = "UPDATE registration  SET first_name ='"+ firstname +"', last_name='"+ lastname +"', email='"+ email +"', password='"+ password +"', branch='"+ ce_it +"', gender='"+ gender +"', city='"+ city +"', phone='"+ phone +"' WHERE email ='"+ email +"'";
         if(field){
             ce_it = "Branch CE/IT";
         }
@@ -141,6 +139,15 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         String whereArgs[] = {email};
 
         long res = db.update(Signup_Table_Name,values,whereClause,whereArgs);
+        return (res==-1)?false:true;
+    }
+
+    public boolean user_del(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String whereClause = "email=?";
+        String whereArgs[] = {username};
+
+        long res = db.delete(Signup_Table_Name,whereClause,whereArgs);
         return (res==-1)?false:true;
     }
 }

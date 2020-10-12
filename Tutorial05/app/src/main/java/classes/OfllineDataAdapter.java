@@ -21,10 +21,7 @@ public class OfllineDataAdapter extends RecyclerView.Adapter<OfllineDataAdapter.
     private Context context;
     ArrayList<String> userList;
 
-    public OfllineDataAdapter(Context context, ArrayList<String> list) {
-        this.context = context;
-        this.userList = list;
-    }
+    public OfllineDataAdapter(Context context, ArrayList<String> list) { this.context = context; this.userList = list;}
 
     @NonNull
     @Override
@@ -45,6 +42,7 @@ public class OfllineDataAdapter extends RecyclerView.Adapter<OfllineDataAdapter.
                 ((AppCompatActivity)context).finish();
             }
         });
+        holder.itemView.setTransitionName(String.valueOf(userList.get(position)));
     }
 
     @Override
