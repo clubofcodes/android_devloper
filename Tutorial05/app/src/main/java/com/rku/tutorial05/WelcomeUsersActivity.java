@@ -74,18 +74,17 @@ public class WelcomeUsersActivity extends AppCompatActivity {
     ProgressDialog dialog;
     //*****************"Tutorial 11"***********************
 
-    LinearLayout dataViewLinearLayout;
     private Paint mClearPaint;
     private Drawable deleteDrawable;
     private int intrinsicWidth;
     private int intrinsicHeight;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_users);
 
         AllTypeUserList = findViewById(R.id.AllTypeUsersList);
-        dataViewLinearLayout = findViewById(R.id.dataViewLinearLayout);
         //use this setting to improve performance if you know that changes
         //in content do not changes the layout size of the RecyclerView
         AllTypeUserList.setHasFixedSize(true);
@@ -93,13 +92,13 @@ public class WelcomeUsersActivity extends AppCompatActivity {
         AllTypeUserList.setLayoutManager(new LinearLayoutManager(this));
         //Add Divider
         DividerItemDecoration dividerItemDecoration =
-                new DividerItemDecoration(AllTypeUserList.getContext(),LinearLayoutManager.VERTICAL);
+                new DividerItemDecoration(AllTypeUserList.getContext(), LinearLayoutManager.VERTICAL);
         Drawable whiteDivider = ContextCompat.getDrawable(getApplicationContext(), R.drawable.line_divider);
         dividerItemDecoration.setDrawable(whiteDivider);
         AllTypeUserList.addItemDecoration(dividerItemDecoration);
 
         //*******************"Tutorial 11 (Instantiate dialog object of ProgressDialog)"*******************
-        dialog = new ProgressDialog(WelcomeUsersActivity.this,R.style.DialogTheme);
+        dialog = new ProgressDialog(WelcomeUsersActivity.this, R.style.DialogTheme);
         //*****************"Tutorial 11"***********************
 
         //*****************"Tutorial 06"***********************
@@ -109,8 +108,8 @@ public class WelcomeUsersActivity extends AppCompatActivity {
 
 
         //*******************"Tutorial 10 (onlineUsers click event)"*******************
-        int temp = preferences.getInt("temp",0);
-        if(temp == 3){
+        int temp = preferences.getInt("temp", 0);
+        if (temp == 3) {
             editor.putString("closeApp", "no");
             editor.commit();
             getSupportActionBar().setHomeButtonEnabled(true);
@@ -118,22 +117,21 @@ public class WelcomeUsersActivity extends AppCompatActivity {
             mState = "HIDE_MENU"; // setting state
             setTitle("Online Users");
             //*******************"Tutorial 12(RecyclerView Java class for fetching online data using Volley)"*******************
-            if(MyUtil.isOnline(this)){
+            if (MyUtil.isOnline(this)) {
                 //new MyAsyncTask().execute();
                 //*****************"Tutorial 11(Online Users data view by StringRequest & JSONArray Request)"***********************
                 volleyNetworkCall();
                 //*****************"Tutorial 11"***********************
-
                 //*******************"Tutorial 12(RecyclerView Java class for fetching online data using Volley)"*******************
             }
             else {
-                builder = new AlertDialog.Builder(this,R.style.DialogTheme);
+                builder = new AlertDialog.Builder(this, R.style.DialogTheme);
                 builder.setTitle("No Internet Connection")
                         .setMessage("You need to have Mobile Data or wifi to access this. Press Cancel to Exit")
                         .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                editor.putInt("temp",3);
+                                editor.putInt("temp", 3);
                                 editor.commit();
                                 startActivity(new Intent(WelcomeUsersActivity.this, WelcomeUsersActivity.class));
                                 finish();
@@ -148,15 +146,14 @@ public class WelcomeUsersActivity extends AppCompatActivity {
                 AlertDialog errorDialog = builder.create();
                 errorDialog.show();
             }
-        }
-        else{
-        //*******************"Tutorial 10"*******************
+        } else {
+            //*******************"Tutorial 10"*******************
             editor.putString("closeApp", "yes");
             editor.commit();
             //*******************"Tutorial 08"*******************
             myDB = new MyDatabaseHelper(this);
             list = myDB.getUserList();
-            offlineData = new OfllineDataAdapter(WelcomeUsersActivity.this,list);
+            offlineData = new OfllineDataAdapter(WelcomeUsersActivity.this, list);
             new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(AllTypeUserList);
             AllTypeUserList.setAdapter(offlineData);
             //*******************"Tutorial 08"*******************
@@ -164,7 +161,7 @@ public class WelcomeUsersActivity extends AppCompatActivity {
     }
 
     ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
-            new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
+            new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
                 @Override
                 public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                     return false;
@@ -176,18 +173,20 @@ public class WelcomeUsersActivity extends AppCompatActivity {
                     builder.setTitle("Warning!!")
                             .setMessage("Are You Sure You Want To Delete.")
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            myDB.user_del(viewHolder.itemView.getTransitionName());
-                            list.remove(viewHolder.getAdapterPosition());
-                        }
-                    })
-                    .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    myDB.user_del(viewHolder.itemView.getTransitionName());
+                                }
+                            })
+                            .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    startActivity(new Intent(WelcomeUsersActivity.this, WelcomeUsersActivity.class));
+                                    finish();
+                                }
+                            });
+                    list.remove(viewHolder.getAdapterPosition());
                     AlertDialog del_dialog = builder.create();
                     del_dialog.show();
                     offlineData.notifyDataSetChanged();
@@ -230,17 +229,17 @@ public class WelcomeUsersActivity extends AppCompatActivity {
                     public void onResponse(JSONArray response) {
                         MyUtil.jsonArray = response;
                         //*****************"Tutorial 12(Adapter Object instantiate)"***********************
-                        onlineData = new OnlineDataAdapter(WelcomeUsersActivity.this,response);
+                        onlineData = new OnlineDataAdapter(WelcomeUsersActivity.this, response);
                         AllTypeUserList.setAdapter(onlineData);
                         onlineData.notifyDataSetChanged();
                         //*****************"Tutorial 12"***********************
-                        if(dialog.isShowing())dialog.dismiss();
+                        if (dialog.isShowing()) dialog.dismiss();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        if(dialog.isShowing())dialog.dismiss();
+                        if (dialog.isShowing()) dialog.dismiss();
                     }
                 }
         );
@@ -252,14 +251,15 @@ public class WelcomeUsersActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        String closeApp = preferences.getString("closeApp","");
-        if(closeApp == "no"){
-            editor.putInt("temp",1);
+        String closeApp = preferences.getString("closeApp", "");
+        if (closeApp == "no") {
+            editor.putInt("temp", 1);
             editor.commit();
-            startActivity(new Intent(getApplicationContext(),WelcomeUsersActivity.class));
+            startActivity(new Intent(getApplicationContext(), WelcomeUsersActivity.class));
             finish();
         }
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -269,27 +269,28 @@ public class WelcomeUsersActivity extends AppCompatActivity {
     //*****************"Tutorial 06"***********************
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu,menu);
-        if(mState == "HIDE_MENU"){
+        getMenuInflater().inflate(R.menu.menu, menu);
+        if (mState == "HIDE_MENU") {
             for (int i = 0; i < menu.size(); i++)
                 menu.getItem(i).setVisible(false);
         }
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.abt_menu:
                 Toast.makeText(WelcomeUsersActivity.this, "You clicked about us..", Toast.LENGTH_SHORT).show();
                 break;
             //*****************"Tutorial 09"***********************
             case R.id.manageFiles:
-                startActivity(new Intent(getApplicationContext(),FileHandlingActivity.class));
+                startActivity(new Intent(getApplicationContext(), FileHandlingActivity.class));
                 break;
             //*****************"Tutorial 09"***********************
             //*****************"Tutorial 10, 12(To add into menu list)"***********************
             case R.id.asyncTask:
-                editor.putInt("temp",3);
+                editor.putInt("temp", 3);
                 editor.commit();
                 startActivity(new Intent(getApplicationContext(), WelcomeUsersActivity.class));
                 finish();
@@ -315,7 +316,7 @@ public class WelcomeUsersActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog = new ProgressDialog(WelcomeUsersActivity.this,R.style.DialogTheme);
+            dialog = new ProgressDialog(WelcomeUsersActivity.this, R.style.DialogTheme);
             dialog.show();
         }
 
@@ -329,10 +330,10 @@ public class WelcomeUsersActivity extends AppCompatActivity {
 
                 strb = new StringBuilder();
                 String onlineData = "";
-                while((onlineData = br.readLine())!=null){
+                while ((onlineData = br.readLine()) != null) {
                     strb.append(onlineData);
                 }
-                Log.i("jsonString",strb.toString());
+                Log.i("jsonString", strb.toString());
                 MyUtil.jsonArray = new JSONArray(strb.toString());
 
             } catch (IOException | JSONException e) {
@@ -344,9 +345,9 @@ public class WelcomeUsersActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
-            onlineData = new OnlineDataAdapter(getApplicationContext(),MyUtil.jsonArray);
+            onlineData = new OnlineDataAdapter(getApplicationContext(), MyUtil.jsonArray);
             AllTypeUserList.setAdapter(onlineData);
-            if(dialog.isShowing()){
+            if (dialog.isShowing()) {
                 dialog.dismiss();
             }
         }

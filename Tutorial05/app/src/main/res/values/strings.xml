@@ -60,4 +60,7 @@
     <string name="read_files">READ FILES</string>
     <string name="read_assets">READ ASSETS</string>
     <string name="write_files">WRITE FILES</string>
+    <string name="prev_link">Prev</string>
+    <string name="next_link">Next</string>
+    <string name="delete_link">Delete</string>
 </resources>

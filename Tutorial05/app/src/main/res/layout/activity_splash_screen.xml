@@ -31,7 +31,6 @@
         android:id="@+id/SplashTitle"
         style="@style/TitleStyle"
         android:layout_marginTop="50dp"
-        android:foregroundGravity="center_vertical|center"
         android:text="@string/splash_wel_msg"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"

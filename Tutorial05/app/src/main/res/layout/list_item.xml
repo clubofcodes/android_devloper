@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--*******************"Tutorial 10 (onlineUsers Name & Email)"*******************-->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dataViewLinearLayout"
     style="@style/LinearLayoutStyle"
     android:background="@drawable/bg"

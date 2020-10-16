@@ -38,6 +38,7 @@ public class OfllineDataAdapter extends RecyclerView.Adapter<OfllineDataAdapter.
             public void onClick(View v) {
                 Intent emailClick = new Intent(context, DataDisplayActivity.class);
                 emailClick.putExtra("username",String.valueOf(userList.get(position)));
+                emailClick.putExtra("pos",position);
                 context.startActivity(emailClick);
                 ((AppCompatActivity)context).finish();
             }

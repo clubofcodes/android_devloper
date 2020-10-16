@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/SameWH_Layout"
@@ -7,7 +8,7 @@
     tools:context=".DataDisplayActivity">
 
     <LinearLayout
-        android:id="@+id/btnLinearLayout"
+        android:id="@+id/back_editLayout"
         style="@style/LinearLayoutStyle"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/RegDisplayScroll"
@@ -33,7 +34,7 @@
             android:layout_gravity="end"
             android:layout_weight="5"
             android:gravity="end"
-            android:onClick="update_info"
+            android:onClick="edit_data"
             android:paddingStart="0dp"
             android:paddingEnd="30dp"
             android:text="@string/update_link"
@@ -45,10 +46,10 @@
         style="@style/SameWH_Layout"
         android:layout_height="0dp"
         android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/delete_Layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLinearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/back_editLayout">
 
         <LinearLayout
             android:id="@+id/userDetailsLayout"
@@ -220,4 +221,47 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/delete_Layout"
+        style="@style/LinearLayoutStyle"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegDisplayScroll">
+
+        <TextView
+            android:id="@+id/prevDataClickbtn"
+            style="@style/textViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_gravity="start"
+            android:layout_weight="1"
+            android:drawablePadding="4dp"
+            android:text="@string/prev_link"
+            android:textColor="@color/red"
+            app:drawableStartCompat="@drawable/prev_arrow" />
+
+        <TextView
+            android:id="@+id/nxtDataClickbtn"
+            style="@style/textViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="@string/next_link"
+            android:textColor="@color/red"
+            app:drawableEndCompat="@drawable/next_arrow" />
+
+        <TextView
+            android:id="@+id/delClickbtn"
+            style="@style/textViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="9"
+            android:textColor="@color/red"
+            android:gravity="end"
+            app:drawableEndCompat="@drawable/ic_delete"
+            android:text="@string/delete_link" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

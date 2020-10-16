@@ -2,14 +2,15 @@ package com.rku.tutorial05;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,12 +20,14 @@ import classes.MyUtil;
 
 public class DataDisplayActivity extends AppCompatActivity {
     //*******************"Tutorial 08"*******************
-    TextView conView,fullname,gen,phone,email,city,field, siteTitle,site,loc,comp_add;
+    TextView conView,fullname,gen,phone,email,city,field,siteTitle,site,loc,comp_add,nxtLink,prevLink,delLink;
     MyDatabaseHelper myDB;
+    String username;
     //*******************"Tutorial 08"*******************
-    int temp;
+    int temp,i;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
+    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,10 @@ public class DataDisplayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_data_display);
         preferences = getSharedPreferences("session", MODE_PRIVATE);
         editor = preferences.edit();
+
+        nxtLink = findViewById(R.id.nxtDataClickbtn);
+        prevLink = findViewById(R.id.prevDataClickbtn);
+        delLink = findViewById(R.id.delClickbtn);
 
         //*******************"Tutorial 08 (Offline Database userdata)"*******************
         conView = findViewById(R.id.shortNameText);
@@ -52,7 +59,7 @@ public class DataDisplayActivity extends AppCompatActivity {
         //*******************"Tutorial 11"*******************
 
         //*******************"Tutorial 10 (Online website dataView from json file)"*******************
-        temp = getIntent().getIntExtra("temp",0);
+        temp = intent.getIntExtra("temp",0);
         if(temp == 4){
             TextView edit = findViewById(R.id.editClickbtn);
             edit.setVisibility(View.GONE);
@@ -85,7 +92,7 @@ public class DataDisplayActivity extends AppCompatActivity {
         else {
             //*******************"Tutorial 08 (dataView from Offline Database)"*******************
             myDB = new MyDatabaseHelper(this);
-            String username = intent.getStringExtra("username");
+            username = intent.getStringExtra("username");
             Cursor cursor = myDB.getPartUserData(username);
             cursor.moveToFirst();
             conView.setText(cursor.getString(1).substring(0,1)+cursor.getString(2).substring(0,1));
@@ -98,20 +105,80 @@ public class DataDisplayActivity extends AppCompatActivity {
             site.setVisibility(View.GONE);
             siteTitle.setVisibility(View.GONE);
             //*******************"Tutorial 08"*******************
+            int size = myDB.getUserList().size(); --size;
+            int loopPos = getIntent().getIntExtra("loopPos",myDB.getUserList().size());
+            int pos = getIntent().getIntExtra("pos",myDB.getUserList().size());
+            if(size == loopPos || size == pos){
+                nxtLink.setVisibility(View.GONE);
+            }else if(pos == 0 || loopPos == 0){
+                prevLink.setVisibility(View.GONE);
+            }
         }
         //*******************"Tutorial 10"*******************
 
+        nxtLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (i=0;i<myDB.getUserList().size();i++){
+                    if(username.equals(myDB.getUserList().get(i))){
+                        Intent nxtIntent = new Intent(DataDisplayActivity.this,DataDisplayActivity.class);
+                        nxtIntent.putExtra("username",myDB.getUserList().get(++i));
+                        nxtIntent.putExtra("loopPos",i);
+                        startActivity(nxtIntent);
+                        finish();
+                    }
+                }
+            }
+        });
 
+        prevLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int prevSize = myDB.getUserList().size(); --prevSize;
+                for (i=prevSize;i>0;i--){
+                    if(username.equals(myDB.getUserList().get(i))){
+                        Intent prevIntent = new Intent(DataDisplayActivity.this,DataDisplayActivity.class);
+                        prevIntent.putExtra("username",myDB.getUserList().get(--i));
+                        prevIntent.putExtra("loopPos",i);
+                        startActivity(prevIntent);
+                        finish();
+                    }
+                }
+            }
+        });
+
+        delLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder = new AlertDialog.Builder(DataDisplayActivity.this,R.style.DialogTheme);
+                builder.setTitle("Warning!!")
+                        .setMessage("Are You Sure You Want To Delete.")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                myDB.user_del(username);
+                                startActivity(new Intent(DataDisplayActivity.this,WelcomeUsersActivity.class));
+                                finish();
+                            }
+                        })
+                        .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                AlertDialog del_dialog = builder.create();
+                del_dialog.show();
+            }
+        });
     }
 
     public void back_activity(View view) {
         onBackPressed();
     }
-    public void update_info(View view) {
-        Intent setDataIntent = new Intent(getApplicationContext(),SignupActivity.class);
+    public void edit_data(View view) {
+        Intent setDataIntent = new Intent(DataDisplayActivity.this,SignupActivity.class);
         setDataIntent.putExtra("update",1);
-        myDB = new MyDatabaseHelper(this);
-        String username = getIntent().getStringExtra("username");
         Cursor cursor = myDB.getPartUserData(username);
         cursor.moveToFirst();
         setDataIntent.putExtra("username",username);
@@ -125,6 +192,7 @@ public class DataDisplayActivity extends AppCompatActivity {
         startActivity(setDataIntent);
         finish();
     }
+
     //*******************"Tutorial 10 (Back button/key event management)"*******************
     @Override
     public void onBackPressed() {
