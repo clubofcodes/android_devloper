@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tutorial 12</string>
+    <string name="app_name">Tutorial 13</string>
     <string name="app_name05">Tutorial 05</string>
     <string name="app_name06">Tutorial 06</string>
     <string name="app_name07">Tutorial 07</string>
@@ -24,7 +24,7 @@
     <string name="signup_title">Create your account</string>
     <string name="signUp_firstname">Enter your Firstname</string>
     <string name="signUp_lastname">Enter your Lastname</string>
-    <string name="enter_your_number">Enter your number</string>
+    <string name="enter_your_number">Enter your 10 digit number</string>
     <string name="reg_field">Branch CE/IT</string>
     <string name="gen_male">Male</string>
     <string name="gen_female">Female</string>
@@ -52,15 +52,15 @@
     <string name="comp_website">Website</string>
     <string name="back_link">Back</string>
     <string name="update_link">Edit</string>
+    <string name="prev_link">Prev</string>
+    <string name="next_link">Next</string>
+    <string name="delete_link">Delete</string>
 
     <string name="anim_duration_medium">1000</string>
 
     <!--*********************FileHandling Screen*********************-->
-    <string name="fileEditTxt">Enter your text here...</string>
+    <string name="fileEditTxt">Enter your text here</string>
     <string name="read_files">READ FILES</string>
     <string name="read_assets">READ ASSETS</string>
     <string name="write_files">WRITE FILES</string>
-    <string name="prev_link">Prev</string>
-    <string name="next_link">Next</string>
-    <string name="delete_link">Delete</string>
 </resources>

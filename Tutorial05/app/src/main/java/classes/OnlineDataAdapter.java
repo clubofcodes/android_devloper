@@ -19,12 +19,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 public class OnlineDataAdapter extends RecyclerView.Adapter<OnlineDataAdapter.MyViewHolder> {
     private Context context;
     JSONArray jsonArray;
-    ArrayList<String> userList;
 
     public OnlineDataAdapter(Context context, JSONArray jsonArray) {
         this.jsonArray = jsonArray;

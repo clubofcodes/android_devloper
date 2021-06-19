@@ -296,6 +296,11 @@ public class WelcomeUsersActivity extends AppCompatActivity {
                 finish();
                 break;
             //*****************"Tutorial 10, 12"***********************
+            //*****************"Tutorial 10, 12"***********************
+            case R.id.AppPermissions:
+                startActivity(new Intent(WelcomeUsersActivity.this, PermissionsActivity.class));
+                break;
+            //*****************"Tutorial 10, 12"***********************
             case R.id.logout_menu:
                 editor.remove("email");
                 editor.remove("temp");

@@ -74,15 +74,15 @@ public class DataDisplayActivity extends AppCompatActivity {
                 gen.setText(object.getString("username")); //nickname
                 phone.setText(object.getString("phone"));
                 email.setText(object.getString("email"));
-                loc.setText("Address"); //user address
+                loc.setText("Address"); //user address title
                 city.setText(addressObj.getString("street") + ", " +
                         addressObj.getString("suite") + ", " +
                         addressObj.getString("city") + ", " +
-                        addressObj.getString("zipcode"));
-                comp_add.setText("Company Address");
+                        addressObj.getString("zipcode")); //user address
+                comp_add.setText("Company Address"); //Company address title
                 field.setText(companyObj.getString("name") + ", " +
                         companyObj.getString("catchPhrase") + ", " +
-                        companyObj.getString("bs"));
+                        companyObj.getString("bs")); //company address
                 site.setText(object.getString("website"));
 
             } catch (JSONException e) {
@@ -95,7 +95,7 @@ public class DataDisplayActivity extends AppCompatActivity {
             username = intent.getStringExtra("username");
             Cursor cursor = myDB.getPartUserData(username);
             cursor.moveToFirst();
-            conView.setText(cursor.getString(1).substring(0,1)+cursor.getString(2).substring(0,1));
+            conView.setText(cursor.getString(1).substring(0,1)+cursor.getString(2).substring(0,1)); //shortName
             fullname.setText(cursor.getString(1)+" "+cursor.getString(2));
             gen.setText(cursor.getString(6));
             phone.setText(cursor.getString(8));
